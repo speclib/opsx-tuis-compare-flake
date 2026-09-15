@@ -1,0 +1,52 @@
+schema: spec-driven
+
+context: |
+  Project: opsx-tuis-compare-flake.
+
+  One Nix flake that builds every known OpenSpec TUI (six distinct upstream
+  repos) so `nix shell github:speclib/opsx-tuis-compare-flake` gives you all of
+  them side by side on a shared fixture project, with a README that compares
+  them. Read `docs/briefing.md` for the full scope contract and
+  `CLAUDE.md` for how to work.
+
+  Tech stack: Nix flakes (plain `nixpkgs.lib.genAttrs`, never flake-utils),
+  Go, Rust, Python, shell. Version control is jj (Jujutsu) colocated with git.
+  Work tracking is beans (milestones and epics) plus OpenSpec (one change per
+  epic, tasks live in the change).
+
+  Hard constraints that every change must respect:
+  - Every tool is exposed as `ost-<author>`. No bare `openspec-tui` on PATH.
+  - Upstream sources enter as `flake = false` inputs. No vendoring.
+  - Real hashes only. `lib.fakeHash` is never committed.
+  - Nothing writes outside the repo. Tests use a temp HOME and XDG_DATA_HOME
+    and must not touch `~/.local/share/openspec`.
+  - Matrix cells come from observation, not inference. Inferred means a partial
+    marker plus a footnote.
+  - A tool that will not build is marked `meta.broken = true` and dropped from
+    `packages.default` rather than blocking the flake.
+
+  Prose in this repo uses no em dashes, no en dashes and straight quotes.
+
+rules:
+  proposal:
+    - State which briefing section the change implements.
+    - Include a Non-goals section.
+    - Name the beans epic id this change belongs to.
+  design:
+    - Record every hash, version pin and upstream quirk you had to discover.
+    - Say explicitly when a decision was forced by an upstream limitation.
+  tasks:
+    - Every task is verifiable by a command someone else can run.
+    - The final tasks are always the three test layers: `nix flake check`, the
+      per-package smoke checks, and the e2e scenarios in `tests/e2e/`.
+    - No task may leave a fake hash or a TODO cell behind.
+
+operations:
+  apply:
+    guidance:
+      - Read the upstream repo's real build files before writing any package.
+      - Run the full test gate before reporting the change as applied.
+  archive:
+    guidance:
+      - Confirm the test gate is green before archiving.
+      - After archiving, commit with jj and update the beans epic status.

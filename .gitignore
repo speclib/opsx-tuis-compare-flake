@@ -1,0 +1,14 @@
+# Nix build outputs
+result
+result-*
+
+# direnv
+.direnv/
+.envrc.local
+
+# Editor / OS noise
+.DS_Store
+*.swp
+
+# Scratch space used by the comparison harness
+/tmp-fixture/
