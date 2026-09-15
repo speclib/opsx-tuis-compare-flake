@@ -49,6 +49,10 @@ on purpose and the failure observed.
 | A smoke check pointed at a non-existent binary | The check failed and listed what the package's `bin` did contain     |
 | Pty runner given a program that exits 3       | Covered inside `e2e-pty-helper-behaviour`, which asserts the failure  |
 | A pty start check pointed at a binary exiting 4 | The check failed: "pty-run: exited 4 before the 3.0s deadline: FAIL" |
+| A partial matrix cell with its note removed   | `e2e-comparison-data` failed, and carries that falsification itself   |
+| A line appended to `README.md`                | `readme-is-current` failed: "README.md is stale."                     |
+| A byte appended to the decoy home             | `e2e-no-host-writes` carries this falsification itself                |
+| An unregistered store id                      | `e2e-store-resolution` carries this falsification itself              |
 
 The first two cannot live inside `nix flake check`, because a check that must
 fail would fail the gate. They are run by hand and recorded here. The third is
@@ -144,6 +148,47 @@ elimination, with the same CLI version, environment and input in each case:
 Every invocation of the CLI inside a derivation in this repo therefore
 redirects to a file. Anyone adding a check that runs `openspec` must do the
 same, or their build will not terminate.
+
+## How the matrices were filled
+
+Every cell in `data/comparison.json` comes from one of four kinds of evidence,
+in descending order of strength:
+
+1. **Running the tool.** `--help` output, what it drew on a real pty, whether it
+   stayed up, what it wrote to disk.
+2. **A key table or binding list in the source.** itslame's `key.WithHelp` calls
+   and opsx's `Binding` calls enumerate their features exactly.
+3. **A dependency manifest.** A tool with glamour or tui-markdown in its
+   manifest renders markdown; a tool with nothing of the kind does not.
+4. **A README.** Weakest, and never enough on its own for a `yes`. A feature
+   known only from a README is `part`.
+
+Absence of evidence was not treated as evidence of absence. A feature that a
+grep did not find is `unknown` with a note saying so, not `no`. Of the 114
+feature cells, the ones that are neither a plain yes nor a plain no are all
+attributable to a named gap in what was checked.
+
+### Time to first paint
+
+Measured by `tests/lib/first-paint.py`: a real pty, the working directory set to
+the fixture, five runs per tool, and the median of the delay from `exec` to the
+first byte written to the terminal.
+
+| Tool          | Median  |
+|---------------|---------|
+| ost-neosam    | 7 ms    |
+| ost-specgetty | 10 ms   |
+| ost-dossier   | 21 ms   |
+| ost-itslame   | 28 ms   |
+| ost-mstanton  | 239 ms  |
+| ost-opsx      | 355 ms  |
+
+This is time to first output, not time to a fully drawn frame. The latter cannot
+be measured without asserting on frame content, which the briefing forbids and
+which would break on any redesign.
+
+`ost-opsx` was measured with an explicit `--project`, because without one it
+exits without drawing.
 
 ## Degradations
 

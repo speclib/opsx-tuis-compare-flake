@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-2kzu
 title: 07 Evidence and comparison README
-status: todo
+status: in-progress
 type: milestone
 priority: high
 created_at: 2026-09-15T10:17:45Z
-updated_at: 2026-09-15T10:17:45Z
+updated_at: 2026-09-15T11:57:01Z
 ---
 
 Turn the working flake into the artifact people came for: a README that says what

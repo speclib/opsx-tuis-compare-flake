@@ -45,6 +45,10 @@ in
       inherit (self) ost-demo;
     };
 
+    readme = callTool ./readme.nix {
+      inherit (self) ost-compare;
+    };
+
     default = pkgs.callPackage ./ost-env.nix {
       inherit tools;
       extraCommands = [

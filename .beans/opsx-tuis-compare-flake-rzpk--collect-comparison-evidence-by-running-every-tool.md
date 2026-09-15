@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-rzpk
 title: Collect comparison evidence by running every tool on the fixture
-status: todo
+status: completed
 type: epic
 priority: high
 created_at: 2026-09-15T10:17:45Z
-updated_at: 2026-09-15T10:17:45Z
+updated_at: 2026-09-15T12:00:38Z
 parent: opsx-tuis-compare-flake-2kzu
 blocked_by:
     - opsx-tuis-compare-flake-vcg7
@@ -51,3 +51,36 @@ the source, or from reading a README. That provenance decides the cell marker.
 - [ ] Every property row has a determination and a provenance for all six tools
 - [ ] Startup timings recorded for every tool that runs
 - [ ] Raw observations committed under `docs/`
+
+## Summary of Changes
+
+Every feature and property row determined for all six tools, from running them,
+from key tables and binding lists in their sources, and from their dependency
+manifests. A README claim alone never justifies a yes.
+
+An early attempt counted grep hits per feature per tool and was abandoned: it
+reported zero `--store` hits for itslame, which visibly has the flag in its
+`--help`. Counts measure vocabulary, not behaviour.
+
+The rule that cost the most cells is that absence of evidence is not evidence of
+absence. A feature a search did not find is undetermined with a note, not "no".
+A wrong "no" is the failure a reader cannot detect.
+
+Time to first paint, measured on a real pty in the tmux popup shape, five runs,
+median of exec to first byte:
+
+| Tool          | Median | Language |
+|---------------|--------|----------|
+| ost-neosam    | 7 ms   | Rust     |
+| ost-specgetty | 10 ms  | Go       |
+| ost-dossier   | 21 ms  | Go       |
+| ost-itslame   | 28 ms  | Go       |
+| ost-mstanton  | 239 ms | Python   |
+| ost-opsx      | 355 ms | Python   |
+
+The split is by language, not by project size, so neither Python tool improves
+with a smaller fixture. Both miss the sub-200ms budget a tmux popup wants.
+
+One finding for the next briefing: itslame shells out to a Node CLI and still
+paints at 28 ms, which weakens the latency argument against the CLI route that
+section 7 expected to be decisive.

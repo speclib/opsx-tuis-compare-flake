@@ -273,6 +273,30 @@ let
   # recorded in docs/method.md, because a check that must fail cannot live in
   # `nix flake check`.
   selfChecks = {
+    # The README's tables are generated from data/comparison.json. This fails
+    # if the committed file has drifted from what the data now produces, which
+    # is the only thing keeping "one source" true rather than aspirational.
+    readme-is-current = pkgs.runCommand "readme-is-current"
+      {
+        nativeBuildInputs = [
+          pkgs.diffutils
+          pkgs.coreutils
+        ];
+        committed = ../README.md;
+      }
+      ''
+        if ! diff -u "${packageSet.readme}/README.md" "$committed" > diff.txt; then
+          echo "README.md is stale." >&2
+          echo "Regenerate it with:" >&2
+          echo "  nix build .#readme && cp result/README.md README.md" >&2
+          echo "" >&2
+          head -c 6000 diff.txt >&2
+          exit 1
+        fi
+        echo "README.md matches data/comparison.json"
+        touch "$out"
+      '';
+
     smoke-selftest = mkSmokeCheck {
       name = "selftest";
       package = pkgs.hello;
