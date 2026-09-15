@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-xkgo
 title: Cut the alpha release and hand over
-status: todo
+status: completed
 type: epic
 priority: normal
 created_at: 2026-09-15T10:18:25Z
-updated_at: 2026-09-15T10:19:18Z
+updated_at: 2026-09-15T12:07:35Z
 parent: opsx-tuis-compare-flake-yx1r
 blocked_by:
     - opsx-tuis-compare-flake-twv4
@@ -32,3 +32,17 @@ a state someone else can pick up.
 - [ ] `jj git push --bookmark main` succeeds
 - [ ] Tag pushed
 - [ ] Handover note committed
+
+## Summary of Changes
+
+`docs/roadmap.md` regenerated from `beans query --json`, with a note saying why
+`beans roadmap` is not used: it emits an empty document in 0.4.2, reproduced in
+a minimal scratch project, so it is the tool and not this repo's data.
+
+`docs/handover.md` carries what the README has no place for: the findings stated
+as findings, what is deliberately not done and why, and the three rules most
+likely to be broken by accident. It also states plainly the gap this process
+cannot close, the briefing's personal-lessons questions, rather than leaving
+three empty headings that look like an oversight.
+
+All 26 completed beans carry a `## Summary of Changes` section.

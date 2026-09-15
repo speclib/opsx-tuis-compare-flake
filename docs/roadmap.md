@@ -1,65 +1,81 @@
 # Roadmap
 
-Nine milestones. Milestones and epics live in beans; the tasks inside each epic
-live in that epic's OpenSpec change. One epic is one change is one commit.
+Milestones and epics live in beans; the tasks inside each epic live in that
+epic's OpenSpec change. One epic is one change is one commit.
 
 > `beans roadmap` produces an empty document in beans 0.4.2, reproduced in a
-> minimal scratch project, so this file is maintained from `beans list` until
+> minimal scratch project, so this file is generated from `beans query` until
 > that is fixed.
 
-| Milestone | Epics | Delivers |
-|-----------|-------|----------|
-| 01 Foundation and flake skeleton | 3 | A flake that evaluates on four systems, the test harness, CI |
-| 02 Package the Go TUIs | 3 | specgetty, dossier, itslame |
-| 03 Package the Rust TUI | 1 | neosam |
-| 04 Package the Python TUIs | 2 | mstanton, opsx |
-| 05 Fixture project | 2 | The shared demo project and a second root as a store |
-| 06 Comparison harness | 3 | `packages.default`, `ost-demo`, `ost-compare` |
-| 07 Evidence and comparison README | 3 | The observations, both matrices, method docs |
-| 08 Acceptance and alpha release | 3 | The e2e suite, verified acceptance, the alpha |
-| 09 Deferred carry-over | 1 | Findings that aim the next briefing. Not built here. |
+Generated 2026-09-15.
 
-## Dependency order
+| Milestone | Status | Epics |
+|-----------|--------|-------|
+| 01 Foundation and flake skeleton | done | 3/3 |
+| 02 Package the Go TUIs | done | 3/3 |
+| 03 Package the Rust TUI | done | 1/1 |
+| 04 Package the Python TUIs | done | 2/2 |
+| 05 Fixture project | done | 2/2 |
+| 06 Comparison harness | done | 3/3 |
+| 07 Evidence and comparison README | done | 3/3 |
+| 08 Acceptance and alpha release | doing | 2/3 |
+| 09 Deferred carry-over for the new TUI briefing | draft | 0/1 |
 
-Milestone numbers give the intended reading order, but the real ordering comes
-from the blocked-by edges in beans. Run `beans list --json --ready` and take the
-lowest numbered milestone with open work.
+## Epics
 
-```
-flake-skeleton
-├── test-harness ──────────────────────────────┐
-├── ci-workflow                                │
-├── package-specgetty ─┐                       │
-├── package-dossier ───┤                       │
-├── package-itslame ───┤                       │
-├── package-neosam ────┼── default-env         │
-├── package-mstanton ──┤        │              │
-├── package-opsx ──────┘        │              │
-└── demo-fixture ───────────────┤              │
-    └── store-fixture           │              │
-                                ▼              │
-                             ost-demo          │
-                                │              │
-                                ▼              │
-                            ost-compare ───────┤
-                                │              │
-                                ▼              ▼
-                        evidence-collection  e2e-suite
-                          │        │           │
-                          ▼        ▼           │
-                     readme    method-docs     │
-                          │                    │
-                          └────────┬───────────┘
-                                   ▼
-                        acceptance-verification
-                                   │
-                                   ▼
-                             alpha-release
-```
+### 01 Foundation and flake skeleton
 
-## Degradation
+- [x] CI workflow running nix flake check
+- [x] Flake skeleton with plain genAttrs multi-system support
+- [x] Test harness: smoke checks, e2e runner and host sandbox
 
-Briefing section 5 allows a tool that will not build to keep its package attr,
-carry `meta.broken = true`, leave `packages.default`, and have its failure
-recorded. mstanton and opsx are the likely candidates. A five-of-six flake that
-works beats a six-of-six flake that does not evaluate.
+### 02 Package the Go TUIs
+
+- [x] Package dossier (Go, filesystem reader)
+- [x] Package itslame openspec-tui (Go, CLI JSON client)
+- [x] Package specgetty (Go, spg)
+
+### 03 Package the Rust TUI
+
+- [x] Package neosam openspec-tui (Rust, implementation runner)
+
+### 04 Package the Python TUIs
+
+- [x] Package mstanton openspec-tui (Python, Textual authoring tool)
+- [x] Package opsx-tui (Python, aspiring control center)
+
+### 05 Fixture project
+
+- [x] Demo fixture OpenSpec project satisfying all six tools
+- [x] Second fixture root registered as a store
+
+### 06 Comparison harness
+
+- [x] Combined default env with ost-* wrappers
+- [x] ost-compare: side-by-side launcher and matrix printer
+- [x] ost-demo: writable fixture sandbox
+
+### 07 Evidence and comparison README
+
+- [x] Collect comparison evidence by running every tool on the fixture
+- [x] Write the comparison README with both matrices
+- [x] docs/method.md and docs/adding-a-tool.md
+
+### 08 Acceptance and alpha release
+
+- [x] Complete the e2e scenario suite
+- [ ] Cut the alpha release and hand over
+- [x] Verify the six acceptance criteria from a clean checkout
+
+### 09 Deferred carry-over for the new TUI briefing
+
+- [ ] Findings that aim the next TUI briefing
+
+## Outcome
+
+All eight build milestones are complete. All six tools build and run, none
+degraded, and the six acceptance criteria in `docs/briefing.md` section 5 were
+verified from a clean clone. See `docs/acceptance.md`.
+
+Milestone 09 is deliberately not started. It holds the section 7 carry-over
+notes for the next briefing.

@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-yx1r
 title: 08 Acceptance and alpha release
-status: in-progress
+status: completed
 type: milestone
 priority: high
 created_at: 2026-09-15T10:18:25Z
-updated_at: 2026-09-15T12:02:19Z
+updated_at: 2026-09-15T12:07:35Z
 ---
 
 Prove the PoC against the briefing's own acceptance criteria from a clean
@@ -34,3 +34,12 @@ Criterion 2 is read together with the degradation rule: a tool marked
 - [ ] All six criteria verified from a clean checkout, with the commands and
       their output recorded
 - [ ] Every degraded tool named in the final report
+
+## Summary of Changes
+
+All six acceptance criteria verified from a clean clone, no degradations, the
+e2e suite complete at ten scenarios, and the alpha cut.
+
+The briefing expected `opsx` or `mstanton` to need the degradation rule. Neither
+did. The rule is still wired in and still tested: marking a tool `meta.broken`
+drops it from `packages.default`, the apps and the checks in one edit.
