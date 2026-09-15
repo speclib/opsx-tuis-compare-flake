@@ -54,6 +54,14 @@
       "blurb": "The only tool that drives the openspec CLI JSON API instead of parsing files, which is why it is also the only one with --store. Validate, archive and task toggling from inside the interface."
     },
     {
+      "id": "lazyopenspec",
+      "command": "ost-lazyopenspec",
+      "upstream": "ItsLame/lazyopenspec",
+      "binary": "lazyopenspec",
+      "category": "reader",
+      "blurb": "The same author's second interface, and the newer one. lazygit-style stacked numbered panels with a command log, workflow actions behind a confirm menu, and search that steps between matches. Also CLI-backed, and it inherits the five second startup."
+    },
+    {
       "id": "opsx",
       "command": "ost-opsx",
       "upstream": "fsmw/opsx-tui",
@@ -72,10 +80,12 @@
         "neosam": "yes",
         "mstanton": "yes",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-panels"
       }
     },
     {
@@ -87,11 +97,13 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "opsx": "opsx-renders-nothing",
-        "mstanton": "mstanton-scope"
+        "mstanton": "mstanton-scope",
+        "lazyopenspec": "lazy-panels"
       }
     },
     {
@@ -103,12 +115,14 @@
         "neosam": "part",
         "mstanton": "unknown",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "neosam": "neosam-change-specs",
         "mstanton": "mstanton-scope",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-panels"
       }
     },
     {
@@ -120,7 +134,8 @@
         "neosam": "yes",
         "mstanton": "part",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "specgetty": "specgetty-raw-markdown",
@@ -128,7 +143,8 @@
         "neosam": "tui-markdown",
         "mstanton": "mstanton-preview",
         "itslame": "glamour",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "glamour"
       }
     },
     {
@@ -140,12 +156,14 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "dossier": "dossier-toggle-observed",
         "itslame": "itslame-keys",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-toggle"
       }
     },
     {
@@ -157,12 +175,14 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "specgetty": "specgetty-aggregate",
         "neosam": "neosam-batch-progress",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-observed"
       }
     },
     {
@@ -174,11 +194,13 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "itslame": "itslame-keys",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-actions"
       }
     },
     {
@@ -190,12 +212,14 @@
         "neosam": "unknown",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "specgetty": "specgetty-archive",
         "neosam": "neosam-archive",
-        "itslame": "itslame-keys"
+        "itslame": "itslame-keys",
+        "lazyopenspec": "lazy-actions"
       }
     },
     {
@@ -207,12 +231,14 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "no"
       },
       "notes": {
         "dossier": "dossier-keys",
         "itslame": "itslame-keys",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-no-editor"
       }
     },
     {
@@ -224,13 +250,15 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "unknown"
+        "opsx": "unknown",
+        "lazyopenspec": "no"
       },
       "notes": {
         "specgetty": "specgetty-rescan",
         "dossier": "dossier-live-reload-observed",
         "itslame": "itslame-refresh",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-refresh"
       }
     },
     {
@@ -242,14 +270,16 @@
         "neosam": "unknown",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "specgetty": "specgetty-no-filter-key",
         "dossier": "dossier-filter",
         "neosam": "neosam-filter",
         "itslame": "itslame-keys",
-        "opsx": "opsx-renders-nothing"
+        "opsx": "opsx-renders-nothing",
+        "lazyopenspec": "lazy-search"
       }
     },
     {
@@ -261,14 +291,16 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "yes"
+        "opsx": "yes",
+        "lazyopenspec": "no"
       },
       "notes": {
         "specgetty": "specgetty-needs-root",
         "dossier": "dossier-path",
         "neosam": "neosam-no-args",
         "itslame": "itslame-path",
-        "opsx": "opsx-project-observed"
+        "opsx": "opsx-project-observed",
+        "lazyopenspec": "lazy-no-path"
       }
     },
     {
@@ -280,10 +312,12 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
-        "itslame": "itslame-store"
+        "itslame": "itslame-store",
+        "lazyopenspec": "itslame-store"
       }
     },
     {
@@ -295,7 +329,8 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "no"
       },
       "notes": {
         "specgetty": "specgetty-scan",
@@ -311,7 +346,8 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "no"
       },
       "notes": {
         "neosam": "neosam-agent",
@@ -327,7 +363,8 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "no"
       },
       "notes": {
         "neosam": "neosam-batch"
@@ -342,7 +379,8 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "no"
       },
       "notes": {
         "opsx": "opsx-renders-nothing"
@@ -357,7 +395,8 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "no"
       },
       "notes": {
         "neosam": "neosam-config",
@@ -374,14 +413,16 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "yes"
+        "opsx": "yes",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "specgetty": "specgetty-no-help-key",
         "dossier": "dossier-statusbar",
         "neosam": "neosam-no-help",
         "itslame": "itslame-keys",
-        "opsx": "opsx-help-observed"
+        "opsx": "opsx-help-observed",
+        "lazyopenspec": "lazy-help"
       }
     }
   ],
@@ -395,7 +436,8 @@
         "neosam": "Rust",
         "mstanton": "Python",
         "itslame": "Go",
-        "opsx": "Python"
+        "opsx": "Python",
+        "lazyopenspec": "Go"
       }
     },
     {
@@ -407,7 +449,8 @@
         "neosam": "ratatui",
         "mstanton": "Textual",
         "itslame": "Bubble Tea",
-        "opsx": "Textual"
+        "opsx": "Textual",
+        "lazyopenspec": "Bubble Tea"
       }
     },
     {
@@ -419,10 +462,12 @@
         "neosam": "filesystem",
         "mstanton": "filesystem",
         "itslame": "openspec CLI JSON",
-        "opsx": "filesystem"
+        "opsx": "filesystem",
+        "lazyopenspec": "openspec CLI JSON"
       },
       "notes": {
-        "itslame": "itslame-cli"
+        "itslame": "itslame-cli",
+        "lazyopenspec": "itslame-cli"
       }
     },
     {
@@ -434,10 +479,12 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "yes"
       },
       "notes": {
-        "itslame": "itslame-cli"
+        "itslame": "itslame-cli",
+        "lazyopenspec": "itslame-cli"
       }
     },
     {
@@ -449,7 +496,8 @@
         "neosam": "config.yaml in the project",
         "mstanton": "none observed",
         "itslame": "none observed",
-        "opsx": "$XDG_DATA_HOME/opsx-tui/"
+        "opsx": "$XDG_DATA_HOME/opsx-tui/",
+        "lazyopenspec": "none observed"
       },
       "notes": {
         "neosam": "neosam-config",
@@ -465,11 +513,13 @@
         "neosam": "MIT",
         "mstanton": "MIT claimed, no LICENSE file",
         "itslame": "MIT",
-        "opsx": "contradictory"
+        "opsx": "contradictory",
+        "lazyopenspec": "none declared"
       },
       "notes": {
         "mstanton": "mstanton-license",
-        "opsx": "opsx-license"
+        "opsx": "opsx-license",
+        "lazyopenspec": "lazy-no-license"
       }
     },
     {
@@ -481,7 +531,8 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "no"
       },
       "notes": {
         "specgetty": "not-consumed",
@@ -497,7 +548,8 @@
         "neosam": "openspec-tui",
         "mstanton": "openspec-tui",
         "itslame": "openspec-tui",
-        "opsx": "opsx-tui"
+        "opsx": "opsx-tui",
+        "lazyopenspec": "lazyopenspec"
       },
       "notes": {
         "neosam": "collision",
@@ -514,7 +566,8 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "yes"
+        "opsx": "yes",
+        "lazyopenspec": "yes"
       },
       "notes": {
         "neosam": "neosam-no-args",
@@ -530,12 +583,14 @@
         "neosam": "yes",
         "mstanton": "yes",
         "itslame": "unknown",
-        "opsx": "no"
+        "opsx": "no",
+        "lazyopenspec": "unknown"
       },
       "notes": {
         "opsx": "opsx-silent-exit",
         "dossier": "not-measured",
-        "itslame": "not-measured"
+        "itslame": "not-measured",
+        "lazyopenspec": "not-measured"
       }
     },
     {
@@ -547,7 +602,8 @@
         "neosam": "756 ms",
         "mstanton": "374 ms",
         "itslame": "5101 ms",
-        "opsx": "never"
+        "opsx": "never",
+        "lazyopenspec": "5109 ms"
       },
       "notes": {
         "specgetty": "usable-screen",
@@ -555,7 +611,8 @@
         "neosam": "usable-screen",
         "mstanton": "usable-screen",
         "itslame": "itslame-slow-start",
-        "opsx": "opsx-never-usable"
+        "opsx": "opsx-never-usable",
+        "lazyopenspec": "lazy-slow-start"
       }
     },
     {
@@ -567,7 +624,8 @@
         "neosam": "7 ms",
         "mstanton": "239 ms",
         "itslame": "23 ms",
-        "opsx": "362 ms"
+        "opsx": "362 ms",
+        "lazyopenspec": "27 ms"
       },
       "notes": {
         "specgetty": "first-byte",
@@ -575,7 +633,8 @@
         "neosam": "first-byte",
         "mstanton": "first-byte",
         "itslame": "first-byte",
-        "opsx": "first-byte"
+        "opsx": "first-byte",
+        "lazyopenspec": "first-byte"
       }
     }
   ],
@@ -607,7 +666,7 @@
     "mstanton-license": "MIT is claimed in pyproject.toml and the README. There is no LICENSE file in the tree, and the GitHub API reports no license for the repository.",
     "itslame-keys": "From the key table in the source: `/` filter, space toggle task, `e` edit in $EDITOR, `v` validate, `A` archive, `r` refresh, `?` help.",
     "itslame-cli": "main.go calls exec.LookPath(\"openspec\") before anything else and exits 1 with an install hint if it fails. All commands go through the CLI.",
-    "itslame-store": "--help documents `-store string`, an OpenSpec store id to use as the workspace root. This is the only tool of the six with it.",
+    "itslame-store": "--help documents a --store flag taking an OpenSpec store id to use as the workspace root. Only the two CLI-backed tools have it, which is the point: the CLI does root resolution, so a tool that delegates to it gets stores for free.",
     "itslame-path": "--help documents a positional path argument: a directory containing an openspec/ root.",
     "itslame-refresh": "`r` refreshes manually. No watcher was found.",
     "opsx-silent-exit": "With a clean HOME and no OpenSpec root in the working directory it exits 0 after 239 bytes, drawing nothing and printing no error. It does not walk up the way the CLI does.",
@@ -627,6 +686,17 @@
     "usable-screen": "Time from exec until the rendered screen carries at least 200 printable characters, measured in tmux with a client attached through a pty, five runs, median reported. Each tool is invoked the way it actually works: specgetty with --zoom --path, opsx with --project, the rest bare. This replaces an earlier time-to-first-byte figure, which measured terminal setup and ranked the tools in almost the opposite order.",
     "itslame-slow-start": "5101 ms median, and 2 of 5 runs never reached a usable screen at all. The figure is tightly clustered (5097 to 5129 ms), which is the signature of a five second timeout. It is not the CLI: a counting shim recorded exactly 3 calls per startup at about 0.32 s each, all returning 0. The wait happens inside the tool, behind a 'Loading OpenSpec workspace...' spinner, and was not isolated further.",
     "opsx-never-usable": "No run reached a usable screen. It draws a header within about 360 ms and then nothing else. See the note on its empty panes.",
-    "first-byte": "Time from exec to the first byte written to the terminal. Published here only because it is easy to mistake for responsiveness: for a full-screen program it is the terminal setup sequence, and it says nothing about when content appears. Compare the row above."
+    "first-byte": "Time from exec to the first byte written to the terminal. Published here only because it is easy to mistake for responsiveness: for a full-screen program it is the terminal setup sequence, and it says nothing about when content appears. Compare the row above.",
+    "lazy-observed": "Observed by running it on the fixture.",
+    "lazy-panels": "Observed by running it: panel [1] Changes, [2] Specs and [3] Archive are stacked down the left, with a tabbed detail pane on the right.",
+    "lazy-toggle": "Observed by running it: space in the tasks tab wrote through to tasks.md and `openspec list` then reported 4/7 instead of 3/7.",
+    "lazy-actions": "Observed by running it: `x` opens an Actions menu offering validate, show apply instructions, and archive change. `v`, `a` and `A` reach them directly.",
+    "lazy-search": "Observed by running it: `/` filters a panel, and in the preview `n` and `N` step between matches. Its predecessor filters but does not step.",
+    "lazy-no-editor": "No reference to $EDITOR anywhere in the source. Its own design document says authoring is delegated to $EDITOR rather than done in the interface, so this is a deliberate narrowing: the predecessor binds `e` to open an artifact.",
+    "lazy-no-path": "--help documents only --store and --version. There is no positional path argument, which its predecessor has.",
+    "lazy-refresh": "`r` refreshes manually, and go.mod declares no file watcher.",
+    "lazy-no-license": "No LICENSE file in the tree and the GitHub API reports no license. The same author's older repo is MIT. Nothing is asserted here: meta.license is left unset rather than inheriting the neighbour's.",
+    "lazy-slow-start": "5109 ms median, and only 2 of 5 runs reached a usable screen, which is the same figure and the same failure rate as its predecessor. Whatever costs itslame five seconds survived the rewrite.",
+    "lazy-help": "Observed by running it: `?` opens a Keybindings overlay listing thirteen bindings."
   }
 }

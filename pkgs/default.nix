@@ -19,6 +19,7 @@ in
   neosam = callTool ./neosam.nix { };
   mstanton = callTool ./mstanton.nix { };
   opsx = callTool ./opsx.nix { };
+  lazyopenspec = callTool ./lazyopenspec.nix { };
 
   demo-project = callTool ./demo-project.nix { };
   demo-store = callTool ./demo-store.nix { };
@@ -34,6 +35,7 @@ in
       "mstanton"
       "itslame"
       "opsx"
+      "lazyopenspec"
     ];
   in
   {

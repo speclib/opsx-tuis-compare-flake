@@ -38,6 +38,7 @@ start ost-dossier   "$OST_ENV/bin/ost-dossier"
 start ost-neosam    "$OST_ENV/bin/ost-neosam"
 start ost-mstanton  "$OST_ENV/bin/ost-mstanton"
 start ost-itslame   "$OST_ENV/bin/ost-itslame"
+start ost-lazyopenspec "$OST_ENV/bin/ost-lazyopenspec"
 start ost-opsx      "$OST_ENV/bin/ost-opsx" --project "$OST_FIXTURE"
 
 [ "$failed" = "0" ] || exit 1

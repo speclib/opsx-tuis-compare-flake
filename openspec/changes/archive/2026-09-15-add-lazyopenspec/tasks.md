@@ -1,0 +1,24 @@
+# Tasks: adding lazyopenspec
+
+- [x] 1.1 Compare the new repository against the pinned one: layout, size, deps
+- [x] 1.2 Confirm it is a different program to use, not a version bump
+- [x] 1.3 Check both READMEs for a deprecation or successor notice
+- [x] 2.1 Add the pinned `flake = false` input and lock it
+- [x] 2.2 Write `pkgs/lazyopenspec.nix` with a hash resolved by building
+- [x] 2.3 Stamp the snapshot over its `dev` default
+- [x] 2.4 Record the runtime `openspec` dependency
+- [x] 2.5 Leave `meta.license` unset, and say in the file why
+- [x] 3.1 Make the wrapper carry a license through only when one is declared
+- [x] 3.2 Refine the naming rule for an author with two tools
+- [x] 3.3 Update the expected command list in `default-env`
+- [x] 3.4 Add it to `each-tool-starts`
+- [x] 4.1 Run it on the fixture and fill every cell from observation
+- [x] 4.2 Confirm its task toggle writes through to disk
+- [x] 4.3 Measure time to a usable screen and time to first byte
+- [x] 5.1 Record the comparison between the two ItsLame tools in `docs/method.md`
+- [x] 5.2 Record the naming rule in `docs/method.md`
+- [x] 5.3 Note in the handover that the five seconds survived the rewrite
+- [x] 6.1 `nix build .#lazyopenspec` succeeds with a real hash
+- [x] 6.2 `ls result/bin` on the environment lists ten commands
+- [x] 6.3 `nix flake check --all-systems` passes
+- [x] 6.4 `openspec validate add-lazyopenspec --strict` passes

@@ -34,6 +34,13 @@
       url = "github:fsmw/opsx-tui";
       flake = false;
     };
+    # The same author's newer, differently shaped interface. Kept alongside
+    # src-itslame rather than replacing it: neither upstream README mentions the
+    # other, so this repo does not get to declare one of them dead.
+    src-lazyopenspec = {
+      url = "github:ItsLame/lazyopenspec";
+      flake = false;
+    };
   };
 
   outputs =
@@ -67,6 +74,7 @@
           mstanton = mkVersion inputs.src-mstanton;
           itslame = mkVersion inputs.src-itslame;
           opsx = mkVersion inputs.src-opsx;
+          lazyopenspec = mkVersion inputs.src-lazyopenspec;
         };
       };
 

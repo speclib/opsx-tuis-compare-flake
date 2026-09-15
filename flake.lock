@@ -21,6 +21,7 @@
         "nixpkgs": "nixpkgs",
         "src-dossier": "src-dossier",
         "src-itslame": "src-itslame",
+        "src-lazyopenspec": "src-lazyopenspec",
         "src-mstanton": "src-mstanton",
         "src-neosam": "src-neosam",
         "src-opsx": "src-opsx",
@@ -56,6 +57,22 @@
       "original": {
         "owner": "ItsLame",
         "repo": "openspec-tui",
+        "type": "github"
+      }
+    },
+    "src-lazyopenspec": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788336641,
+        "narHash": "sha256-jqtCHuq9t0DAvwEjnK6NF+yS12Nj92gz78N+4cErsH0=",
+        "owner": "ItsLame",
+        "repo": "lazyopenspec",
+        "rev": "ec0cad0746841f652c006270e7b5e306c1581052",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ItsLame",
+        "repo": "lazyopenspec",
         "type": "github"
       }
     },

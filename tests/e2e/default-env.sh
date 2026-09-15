@@ -9,7 +9,7 @@ set -euo pipefail
 . "$OST_TEST_LIB/sandbox.sh"
 
 echo "-- every expected command is present"
-expected="openspec ost-compare ost-demo ost-dossier ost-itslame ost-mstanton ost-neosam ost-opsx ost-specgetty"
+expected="openspec ost-compare ost-demo ost-dossier ost-itslame ost-lazyopenspec ost-mstanton ost-neosam ost-opsx ost-specgetty"
 missing=0
 for cmd in $expected; do
   if [ -x "$OST_ENV/bin/$cmd" ]; then

@@ -5,7 +5,7 @@ status: completed
 type: milestone
 priority: high
 created_at: 2026-09-15T10:17:45Z
-updated_at: 2026-09-15T12:49:35Z
+updated_at: 2026-09-15T13:55:08Z
 ---
 
 Turn the working flake into the artifact people came for: a README that says what
@@ -41,3 +41,7 @@ paint for the Rust and Go tools, 239 ms and 355 ms for the two Python ones.
 The milestone was completed on source-derived evidence. Driving the tools
 afterwards changed about a dozen cells and reversed the timing conclusion, so it
 was reopened for one epic and closed again on observed evidence.
+
+## Reopened again for lazyopenspec
+
+A seventh tool was found after the milestone closed. Added from observation.

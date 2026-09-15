@@ -2,10 +2,16 @@
 # lands you in.
 #
 # This is the only place the ost- names exist. Each individual package keeps the
-# binary name its upstream ships, because three of the six install a binary
+# binary name its upstream ships, because three upstreams install a binary
 # called openspec-tui and they cannot coexist on one PATH. Wrapping here rather
 # than in each package means those three never race as symlinks inside one
 # buildEnv.
+#
+# The suffix is the author, except where one author ships two tools. ItsLame has
+# both openspec-tui and lazyopenspec, so the author no longer disambiguates and
+# the project name is used instead: ost-itslame and ost-lazyopenspec. The rule
+# is "the shortest suffix that identifies the tool", which was the author right
+# up until it was not.
 {
   lib,
   buildEnv,
@@ -37,10 +43,14 @@ let
     runCommand "ost-${name}"
       {
         nativeBuildInputs = [ makeWrapper ];
+        # license is carried through only when the package declares one. A tool
+        # whose upstream ships no license file gets no license here either,
+        # rather than inheriting a neighbour's or being quietly labelled.
         meta = {
-          inherit (pkg.meta) description homepage license;
+          inherit (pkg.meta) description homepage;
           mainProgram = "ost-${name}";
-        };
+        }
+        // lib.optionalAttrs (pkg.meta ? license) { inherit (pkg.meta) license; };
       }
       ''
         mkdir -p "$out/bin"

@@ -36,9 +36,16 @@ finish 2 runs in 5. The remaining time is inside the tool. So the CLI tax is
 real but modest, and the case against this particular implementation is not the
 case against the approach.
 
-**Only one tool has `--store`, and it is the CLI-backed one.** That is not a
-coincidence: the CLI resolves roots, so the tool that delegates to it gets
-`--store` for free while the five that parse files do not have it at all.
+**Only the CLI-backed tools have `--store`.** That is not a
+coincidence: the CLI resolves roots, so a tool that delegates to it gets
+`--store` for free, while the five that parse files do not have it at all.
+
+**The five seconds survived a rewrite.** ItsLame's newer `lazyopenspec` is a
+different program to use, with a lazygit-style layout and a command log, but it
+takes 5109 ms to a usable screen against itslame's 5101 ms and fails at the same
+rate. Two independent codebases by the same author, same cost. Worth a look
+before adopting the CLI-backed shape, and it is the most concrete open question
+this comparison leaves behind.
 
 **opsx renders nothing in this build.** It starts, switches views and shows a
 help overlay; every pane is empty. Its declared `textual>=1.0,<3.0` is built

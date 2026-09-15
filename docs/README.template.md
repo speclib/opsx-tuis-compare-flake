@@ -1,9 +1,9 @@
 # opsx-tuis-compare-flake
 
-Six people have written a terminal interface for [OpenSpec](https://github.com/Fission-AI/OpenSpec).
-Three of them called the binary `openspec-tui`, so you cannot install more than
-one and decide for yourself. This flake builds all six from source under names
-that do not collide, on one shared fixture project, and reports what they
+Several people have written a terminal interface for [OpenSpec](https://github.com/Fission-AI/OpenSpec),
+and three of them called the binary `openspec-tui`, so you cannot install more
+than one and decide for yourself. This flake builds all seven from source under
+names that do not collide, on one shared fixture project, and reports what they
 actually do.
 
 ```
@@ -12,10 +12,10 @@ ost-compare          # what each one is for
 ost-demo             # a throwaway copy of the fixture to try them on
 ```
 
-Nine commands land on your `PATH`: `ost-specgetty`, `ost-dossier`,
-`ost-neosam`, `ost-mstanton`, `ost-itslame`, `ost-opsx`, plus `ost-compare`,
-`ost-demo` and the `openspec` CLI. Nothing here writes to your projects or to
-your OpenSpec store registry.
+Ten commands land on your `PATH`: `ost-specgetty`, `ost-dossier`, `ost-neosam`,
+`ost-mstanton`, `ost-itslame`, `ost-lazyopenspec`, `ost-opsx`, plus
+`ost-compare`, `ost-demo` and the `openspec` CLI. Nothing here writes to your
+projects or to your OpenSpec store registry.
 
 ## Bias disclosure
 
@@ -25,10 +25,15 @@ and marked by the same rules as the other five, and the rules are in
 
 ## The contenders
 
-They are not six versions of one program. Two are readers, one scans your whole
-machine, one runs changes, one writes them, and one wants to be a control
+They are not seven versions of one program. Three are readers, one scans your
+whole machine, one runs changes, one writes them, and one wants to be a control
 centre. Read the categories before reading the matrix, or the matrix will
 mislead you.
+
+Two of them are by the same author. `ItsLame/openspec-tui` and
+`ItsLame/lazyopenspec` share a lineage and a CLI-backed design, but they are
+different programs to use, and neither repo mentions the other, so this page
+does not declare either one dead.
 
 {{CONTENDERS}}
 
@@ -61,10 +66,12 @@ clear it comfortably, two are usable, and two are not:
 - **specgetty at 65 ms and dossier at 130 ms** are the only two that feel
   instant.
 - **mstanton at 374 ms and neosam at 756 ms** are usable but noticeable.
-- **itslame takes 5.1 seconds**, and two runs in five never finished at all. It
-  sits behind a "Loading OpenSpec workspace..." spinner. This is not the cost of
-  shelling out to the CLI: a counting shim recorded three calls per startup at
-  about 0.32 s each, all succeeding. The wait is inside the tool.
+- **both ItsLame tools take about 5.1 seconds**, and only two runs in five
+  finish. itslame sits behind a "Loading OpenSpec workspace..." spinner;
+  lazyopenspec reproduces the figure almost exactly, so whatever costs the
+  five seconds survived a rewrite. This is not the cost of shelling out to the
+  CLI: a counting shim recorded three calls per startup at about 0.32 s each,
+  all succeeding. The wait is inside the tools.
 - **opsx never reaches a usable screen.** It draws a header and nothing else.
 
 Note what this does not correlate with. The fastest is Go and the second slowest
@@ -81,6 +88,13 @@ your unit of work is the machine rather than one project.
 install a binary called `openspec-tui`. Each package here keeps that upstream
 name, and only the combined environment renames them, so what you see in the
 properties matrix is what upstream really installs.
+
+The suffix is the author, except where one author ships two tools. ItsLame has
+both, so those two are named by project: `ost-itslame` and `ost-lazyopenspec`.
+
+**`ItsLame/lazyopenspec` carries no license file at all**, where the same
+author's older repo is MIT. This page asserts nothing about it, and the package
+leaves `meta.license` unset rather than inheriting the neighbour's.
 
 **fsmw/opsx-tui has contradictory licensing.** The tree carries a GPL-3.0
 `LICENSE` file and GitHub reports GPL-3.0, while its README says the license

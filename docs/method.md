@@ -220,6 +220,30 @@ Three details matter for anyone repeating this:
 - **First byte is not first paint.** The correction above is entirely the
   difference between those two.
 
+### The two ItsLame tools
+
+`ItsLame/lazyopenspec` is the same author's newer interface, and it is packaged
+alongside `ItsLame/openspec-tui` rather than replacing it. Neither repository's
+README mentions the other, and the older one was last pushed two months before
+the newer one, which is not enough to call it abandoned.
+
+They share a lineage: the same internal package layout, the same CLI-backed
+design, the same `--store` flag. What differs is enough to make them different
+programs to use:
+
+| | openspec-tui | lazyopenspec |
+|---|---|---|
+| Layout | Two panes | Stacked numbered panels plus a command log |
+| Workflow actions | Direct keys | Also an `x` actions menu with confirm prompts |
+| Search | Filter | Filter, plus `n` and `N` to step between matches |
+| `$EDITOR` | `e` opens an artifact | Absent; its design delegates authoring outside |
+| Path argument | Positional path | None; `--store` only |
+| License | MIT | No LICENSE file at all |
+| Source size | 2489 lines | 3422 lines |
+
+Both were run on the fixture. Both take about 5.1 seconds to a usable screen and
+both fail to finish 2 runs in 5, so whatever costs the time survived the rewrite.
+
 ### itslame's five seconds
 
 itslame is the slowest tool that works, at 5101 ms median, and 2 of 5 runs never
@@ -267,6 +291,13 @@ build does not show it".
 Its `meta.broken` is deliberately not set: it builds, it starts, and marking it
 broken would remove it from the comparison, which would hide the finding rather
 than report it.
+
+### Naming when one author ships two tools
+
+The scheme is `ost-<author>`, which stops disambiguating the moment one author
+publishes twice. The suffix is now the shortest thing that identifies the tool:
+the author where that is unique, the project name where it is not. So
+`ost-itslame` and `ost-lazyopenspec`, and the other five are unchanged.
 
 ### What driving the tools changed
 
