@@ -37,6 +37,13 @@ in
     ];
   in
   {
-    default = pkgs.callPackage ./ost-env.nix { inherit tools; };
+    ost-demo = callTool ./ost-demo.nix {
+      inherit (self) demo-project demo-store;
+    };
+
+    default = pkgs.callPackage ./ost-env.nix {
+      inherit tools;
+      extraCommands = [ self.ost-demo ];
+    };
   }
 )
