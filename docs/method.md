@@ -185,27 +185,106 @@ grep did not find is `unknown` with a note saying so, not `no`. Of the 114
 feature cells, the ones that are neither a plain yes nor a plain no are all
 attributable to a named gap in what was checked.
 
-### Time to first paint
+### Timing: what was measured, and one correction
 
-Measured by `tests/lib/first-paint.py`: a real pty, the working directory set to
-the fixture, five runs per tool, and the median of the delay from `exec` to the
-first byte written to the terminal.
+An earlier pass measured time from `exec` to the first byte written to the
+terminal. That number is in the properties matrix, labelled as what it is,
+because it is easy to mistake for responsiveness and it is not. For a
+full-screen program the first byte is the alternate-screen escape sequence, and
+it arrives long before anything readable.
 
-| Tool          | Median  |
-|---------------|---------|
-| ost-neosam    | 7 ms    |
-| ost-specgetty | 10 ms   |
-| ost-dossier   | 21 ms   |
-| ost-itslame   | 28 ms   |
-| ost-mstanton  | 239 ms  |
-| ost-opsx      | 355 ms  |
+Measured properly, the ranking is almost reversed:
 
-This is time to first output, not time to a fully drawn frame. The latter cannot
-be measured without asserting on frame content, which the briefing forbids and
-which would break on any redesign.
+| Tool          | First byte | Usable screen | Runs that finished |
+|---------------|------------|---------------|---------------------|
+| ost-specgetty | 10 ms      | 65 ms         | 5/5                 |
+| ost-dossier   | 21 ms      | 130 ms        | 5/5                 |
+| ost-mstanton  | 239 ms     | 374 ms        | 5/5                 |
+| ost-neosam    | 7 ms       | 756 ms        | 5/5                 |
+| ost-itslame   | 23 ms      | 5101 ms       | 3/5                 |
+| ost-opsx      | 362 ms     | never         | 0/5                 |
 
-`ost-opsx` was measured with an explicit `--project`, because without one it
-exits without drawing.
+"Usable screen" is the first moment the rendered terminal carries at least 200
+printable characters, measured inside tmux with a client attached through a pty,
+five runs, median reported. Each tool is invoked the way it actually works:
+specgetty with `--zoom --path`, opsx with `--project`, the rest bare.
+
+Three details matter for anyone repeating this:
+
+- **Measure in tmux with a client attached.** On a bare pty, specgetty reported
+  5048 ms because nothing answered the terminal queries it makes at startup. In
+  tmux it is 65 ms. A detached tmux session is not enough either.
+- **Invoke each tool the way it works.** Run bare in a project directory,
+  specgetty reports "No OpenSpec projects found" quickly, which would have
+  scored it as fast while measuring an error screen.
+- **First byte is not first paint.** The correction above is entirely the
+  difference between those two.
+
+### itslame's five seconds
+
+itslame is the slowest tool that works, at 5101 ms median, and 2 of 5 runs never
+reached a usable screen. The figure is tightly clustered, 5097 to 5129 ms, which
+is the signature of a five second timeout.
+
+It is not the cost of shelling out to the CLI, which was the obvious hypothesis
+and the one the briefing expected to be decisive. A shim that wrapped `openspec`
+and timed every call recorded exactly three calls per startup:
+
+```
+0.311 s  rc=0  list --specs --json
+0.325 s  rc=0  list --changes --json
+0.319 s  rc=0  status --change add-dark-mode --json
+```
+
+About 0.32 s each, always succeeding, under a second in total. The remaining
+four seconds happen inside the tool, behind a "Loading OpenSpec workspace..."
+spinner. That was not isolated further.
+
+So the CLI route costs about 0.3 s per call, which is a real but modest number,
+and it is not what makes this tool slow.
+
+### opsx renders nothing
+
+opsx starts, responds to keys, switches views and shows a help overlay. No view
+renders any content. Driving it through views 1, 2 and 3 changes only the header:
+
+```
+ OPSX TUI  |  /tmp/ost-demo-.../project  |  --content-tab-board
+ OPSX TUI  |  /tmp/ost-demo-.../project  |  --content-tab-specs
+ OPSX TUI  |  /tmp/ost-demo-.../project  |  --content-tab-changes
+```
+
+The header shows a raw widget id where a tab label belongs, which is the kind of
+thing a framework API change produces. Its declared `textual>=1.0,<3.0` is built
+here against textual 8.2.8.
+
+That is a hypothesis, not a diagnosis. Confirming it needs a textual in the
+declared range, which this nixpkgs does not carry. What is recorded in the
+matrix is what was observed: the panes are empty. The notes say the source
+declares the feature, so a reader can tell "this tool never had it" from "this
+build does not show it".
+
+Its `meta.broken` is deliberately not set: it builds, it starts, and marking it
+broken would remove it from the comparison, which would hide the finding rather
+than report it.
+
+### What driving the tools changed
+
+The first pass filled cells from source: key tables, binding lists, dependency
+manifests. Driving all six on the fixture then changed about a dozen cells and
+reversed the headline timing conclusion. Corrections worth naming:
+
+| Cell                          | Was       | Now  | Because                                   |
+|-------------------------------|-----------|------|--------------------------------------------|
+| dossier live reload           | undetermined | yes  | An external edit moved its progress bar with no keypress |
+| specgetty renders markdown    | no        | no   | Confirmed: it shows markdown markers intact |
+| specgetty config editor       | no        | part | A config tab exists in the zoomed view      |
+| neosam browse project specs   | undetermined | part | It lists a change's delta specs, not the project's |
+| neosam help overlay           | undetermined | no   | `?` does nothing                            |
+| opsx, most rows               | yes/part  | no   | Nothing renders                             |
+
+The lesson is worth stating plainly: a comparison assembled only from reading
+source gets the features roughly right and the experience completely wrong.
 
 ## Degradations
 

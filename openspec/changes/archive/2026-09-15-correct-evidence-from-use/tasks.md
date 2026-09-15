@@ -1,0 +1,26 @@
+# Tasks: correcting the evidence
+
+- [x] 1.1 Drive all six tools on the fixture and read back what they draw
+- [x] 1.2 Confirm dossier's toggle writes through to disk
+- [x] 1.3 Confirm dossier live-reloads on an external edit
+- [x] 1.4 Establish that opsx renders no content in any view
+- [x] 1.5 Confirm opsx's help overlay and view switching do work
+- [x] 1.6 Settle neosam's specs and help cells
+- [x] 1.7 Settle specgetty's markdown, config tab and root requirement
+- [x] 2.1 Re-measure startup as time to a usable screen, in tmux, client attached
+- [x] 2.2 Invoke each tool the way it actually works
+- [x] 2.3 Count and time itslame's CLI calls with a shim
+- [x] 2.4 Record that the CLI is not the cause of its five seconds
+- [x] 3.1 Replace the first-paint row; keep first byte, labelled
+- [x] 3.2 Correct every contradicted cell and its note
+- [x] 3.3 Remove the notes the corrections orphaned
+- [x] 4.1 Withdraw the language-split claim from the README and handover
+- [x] 4.2 Withdraw the cheap-CLI claim from the README and handover
+- [x] 4.3 Record the correction itself, so the method is not trusted blindly
+- [x] 5.1 Commit `tests/lib/drive.py` and `tests/lib/time-to-usable.sh`
+- [x] 5.2 Put pyte in the devshell
+- [x] 5.3 Confirm the committed script reproduces the published figures
+- [x] 6.1 `e2e-comparison-data` passes with every cell decided and explained
+- [x] 6.2 `readme-is-current` passes
+- [x] 6.3 `nix flake check --all-systems` passes
+- [x] 6.4 `openspec validate correct-evidence-from-use --strict` passes

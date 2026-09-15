@@ -79,7 +79,8 @@
             pkgs.go
             pkgs.cargo
             pkgs.rustc
-            pkgs.python3
+            # pyte drives tests/lib/drive.py, which renders what a tool drew.
+            (pkgs.python3.withPackages (ps: [ ps.pyte ]))
             pkgs.openspec
             pkgs.git
             pkgs.jq

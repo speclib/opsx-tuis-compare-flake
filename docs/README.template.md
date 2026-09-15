@@ -47,18 +47,32 @@ cell here that means "probably".
 
 ## What the numbers say
 
-The time-to-first-paint row is the one measurement none of the upstream
-READMEs report, and it is the one that decides whether a tool can live behind a
+The measurement that matters is how long until you can read something, and none
+of the upstream READMEs report it. It decides whether a tool can live behind a
 tmux popup binding:
 
 ```
 bind-key C-o display-popup -E -d "#{pane_current_path}" -w 90% -h 90% "<tui>"
 ```
 
-That shape wants first paint under about 200 ms. The three Go tools and the
-Rust one land between 7 and 28 ms. The two Python ones land at 239 ms and
-355 ms, and the cost is interpreter and framework startup rather than anything
-about the project being opened, so it will not improve with a smaller fixture.
+That shape wants something on screen in a few hundred milliseconds. Two tools
+clear it comfortably, two are usable, and two are not:
+
+- **specgetty at 65 ms and dossier at 130 ms** are the only two that feel
+  instant.
+- **mstanton at 374 ms and neosam at 756 ms** are usable but noticeable.
+- **itslame takes 5.1 seconds**, and two runs in five never finished at all. It
+  sits behind a "Loading OpenSpec workspace..." spinner. This is not the cost of
+  shelling out to the CLI: a counting shim recorded three calls per startup at
+  about 0.32 s each, all succeeding. The wait is inside the tool.
+- **opsx never reaches a usable screen.** It draws a header and nothing else.
+
+Note what this does not correlate with. The fastest is Go and the second slowest
+is Rust; a Python tool beats the Rust one. Startup cost here is about what each
+tool decides to do before drawing, not what it was written in.
+
+If you are looking for the popup-binding tool, it is dossier, with specgetty if
+your unit of work is the machine rather than one project.
 
 ## Notes and caveats
 
@@ -82,9 +96,18 @@ API reports no license.
 `nix eval --json .#lib.versions` for the exact set. A tool that gained a feature
 last week will still be reported as it was at its pinned revision.
 
+**opsx does not render anything in this build.** It starts, switches between
+views and shows its help overlay, but every pane is empty. Most of its `no`
+cells are that, not a tool that never had the feature: its source declares the
+views. The likeliest cause is the point below, and it is the reason this page
+does not credit opsx with the board and runner its README describes.
+
 **Both Python tools are built with their dependency pins relaxed.** Neither
-ships a lockfile, and there is one nixpkgs for the whole flake. Both were
-started and observed rather than assumed to work; see
+ships a lockfile, and there is one nixpkgs for the whole flake, so opsx's
+declared `textual>=1.0,<3.0` is built against textual 8.2.8. mstanton survives
+the same treatment and renders fine. Testing whether a textual in the declared
+range fixes opsx would need a version this nixpkgs does not carry, so the claim
+here is what was observed, not a diagnosis. See
 [docs/method.md](docs/method.md).
 
 **This is a comparison artifact, not a redistribution channel.** All six enter
@@ -101,8 +124,13 @@ The short version: the fixture is one OpenSpec project with two active changes
 at different task completion, one archived change, and two specs, plus a second
 root registered as a store. Every tool is judged on that same data.
 `nix flake check` builds all six, runs a link-and-help or pty start check for
-each, and runs eight end-to-end scenarios, each of which has been deliberately
+each, and runs the end-to-end scenarios, each of which has been deliberately
 broken to prove it can fail.
+
+Cells were first filled from source, then corrected by driving every tool on the
+fixture and reading back what it drew. That pass changed a dozen cells and
+reversed the timing conclusion, which is worth knowing before trusting any
+comparison assembled only from reading code.
 
 ## Adding a tool
 

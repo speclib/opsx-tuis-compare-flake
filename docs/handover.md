@@ -18,20 +18,34 @@ checks, ten end-to-end scenarios, and two self-checks.
 The full matrices are in `README.md`. Three findings are worth stating on their
 own, because they are what the next briefing was asking for.
 
-**Time to first paint splits by language, not by design.** The Rust tool paints
-in 7 ms, the three Go tools between 10 and 28 ms, and the two Python tools at
-239 ms and 355 ms. A tmux popup binding wants under about 200 ms, so both
-Python tools miss it, and they will keep missing it on a smaller project because
-the cost is interpreter and framework startup.
+**Startup cost is about what a tool does before drawing, not what it is written
+in.** Time to a usable screen: specgetty 65 ms, dossier 130 ms, mstanton 374 ms,
+neosam 756 ms, itslame 5101 ms, opsx never. The fastest is Go and the second
+slowest is Rust, and a Python tool beats the Rust one.
 
-**The CLI route is cheaper than expected.** itslame shells out to a Node CLI for
-everything and still paints at 28 ms. The briefing's section 7 expected process
-spawn latency to be the main argument against driving the `openspec` CLI. On
-this fixture it is not.
+An earlier version of this note claimed the split was by language, based on time
+to first byte. That measurement was wrong for the question: for a full-screen
+program the first byte is the alternate-screen escape sequence. The corrected
+numbers are in `docs/method.md` along with how to reproduce them.
+
+**The CLI route costs about 0.3 s per call, and that is not what makes itslame
+slow.** Section 7 expected process spawn latency to be the main argument against
+driving the `openspec` CLI. itslame makes three calls at startup, about 0.32 s
+each, all succeeding, and still takes 5.1 seconds to a usable screen, failing to
+finish 2 runs in 5. The remaining time is inside the tool. So the CLI tax is
+real but modest, and the case against this particular implementation is not the
+case against the approach.
 
 **Only one tool has `--store`, and it is the CLI-backed one.** That is not a
 coincidence: the CLI resolves roots, so the tool that delegates to it gets
 `--store` for free while the five that parse files do not have it at all.
+
+**opsx renders nothing in this build.** It starts, switches views and shows a
+help overlay; every pane is empty. Its declared `textual>=1.0,<3.0` is built
+against nixpkgs' 8.2.8. That is the likely cause and it is not confirmed, because
+this nixpkgs carries no textual in the declared range. The matrix records what
+was observed and its notes say the source declares the features, so nobody
+mistakes this for a tool that never had them.
 
 ## What is deliberately not done
 
@@ -46,10 +60,19 @@ coincidence: the CLI resolves roots, so the tool that delegates to it gets
 
 ## Where the gaps are
 
-Some feature cells in the matrix are undetermined. Each carries a note naming
-what was checked. They are gaps in the evidence, not in the tools, and the
-cheapest way to close them is to use the tools rather than to read more source:
-open `ost-demo`, try the thing, change the cell.
+Some feature cells in the matrix are still undetermined. Each carries a note
+naming what was checked. The cheapest way to close them is to use the tools
+rather than to read more source: open `ost-demo`, try the thing, change the cell.
+
+That is not theoretical. The first pass filled the matrix from key tables,
+binding lists and dependency manifests, and a later pass driving all six tools
+on the fixture changed about a dozen cells and reversed the timing conclusion.
+A comparison assembled only from reading source gets the features roughly right
+and the experience completely wrong.
+
+Specific things still open: whether neosam can archive a change or filter, and
+whether specgetty's config tab edits or only displays. The one question that
+would settle opsx is whether it renders against a textual in its declared range.
 
 The briefing also asks for something no amount of source reading produces:
 

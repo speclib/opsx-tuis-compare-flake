@@ -72,7 +72,10 @@
         "neosam": "yes",
         "mstanton": "yes",
         "itslame": "yes",
-        "opsx": "yes"
+        "opsx": "no"
+      },
+      "notes": {
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -84,10 +87,10 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "unknown"
+        "opsx": "no"
       },
       "notes": {
-        "opsx": "archive-handling",
+        "opsx": "opsx-renders-nothing",
         "mstanton": "mstanton-scope"
       }
     },
@@ -97,14 +100,15 @@
       "cells": {
         "specgetty": "yes",
         "dossier": "yes",
-        "neosam": "unknown",
+        "neosam": "part",
         "mstanton": "unknown",
         "itslame": "yes",
-        "opsx": "yes"
+        "opsx": "no"
       },
       "notes": {
-        "neosam": "neosam-specs",
-        "mstanton": "mstanton-scope"
+        "neosam": "neosam-change-specs",
+        "mstanton": "mstanton-scope",
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -116,15 +120,15 @@
         "neosam": "yes",
         "mstanton": "part",
         "itslame": "yes",
-        "opsx": "yes"
+        "opsx": "no"
       },
       "notes": {
-        "specgetty": "specgetty-no-markdown",
+        "specgetty": "specgetty-raw-markdown",
         "dossier": "glamour",
         "neosam": "tui-markdown",
         "mstanton": "mstanton-preview",
         "itslame": "glamour",
-        "opsx": "textual-markdown"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -136,12 +140,12 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "unknown"
+        "opsx": "no"
       },
       "notes": {
-        "dossier": "dossier-keys",
+        "dossier": "dossier-toggle-observed",
         "itslame": "itslame-keys",
-        "opsx": "opsx-tasks-tab"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -153,12 +157,12 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "unknown"
+        "opsx": "no"
       },
       "notes": {
         "specgetty": "specgetty-aggregate",
         "neosam": "neosam-batch-progress",
-        "opsx": "opsx-tasks-tab"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -170,11 +174,11 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "unknown"
+        "opsx": "no"
       },
       "notes": {
         "itslame": "itslame-keys",
-        "opsx": "opsx-diagnostics"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -203,12 +207,12 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "part"
+        "opsx": "no"
       },
       "notes": {
         "dossier": "dossier-keys",
         "itslame": "itslame-keys",
-        "opsx": "opsx-edit-metadata"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -216,17 +220,17 @@
       "label": "Live reload on disk change",
       "cells": {
         "specgetty": "no",
-        "dossier": "unknown",
+        "dossier": "yes",
         "neosam": "no",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "yes"
+        "opsx": "unknown"
       },
       "notes": {
         "specgetty": "specgetty-rescan",
-        "dossier": "dossier-reload",
+        "dossier": "dossier-live-reload-observed",
         "itslame": "itslame-refresh",
-        "opsx": "watchfiles"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -238,14 +242,14 @@
         "neosam": "unknown",
         "mstanton": "no",
         "itslame": "yes",
-        "opsx": "unknown"
+        "opsx": "no"
       },
       "notes": {
         "specgetty": "specgetty-no-filter-key",
         "dossier": "dossier-filter",
         "neosam": "neosam-filter",
         "itslame": "itslame-keys",
-        "opsx": "opsx-filter"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -260,11 +264,11 @@
         "opsx": "yes"
       },
       "notes": {
-        "specgetty": "specgetty-path",
+        "specgetty": "specgetty-needs-root",
         "dossier": "dossier-path",
         "neosam": "neosam-no-args",
         "itslame": "itslame-path",
-        "opsx": "opsx-project"
+        "opsx": "opsx-project-observed"
       }
     },
     {
@@ -291,11 +295,11 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "part"
+        "opsx": "no"
       },
       "notes": {
         "specgetty": "specgetty-scan",
-        "opsx": "opsx-recent-projects"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -307,11 +311,11 @@
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "part"
+        "opsx": "no"
       },
       "notes": {
         "neosam": "neosam-agent",
-        "opsx": "opsx-runner"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
@@ -338,26 +342,27 @@
         "neosam": "no",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "yes"
+        "opsx": "no"
       },
       "notes": {
-        "opsx": "opsx-board"
+        "opsx": "opsx-renders-nothing"
       }
     },
     {
       "id": "config-editor",
       "label": "In-app config editor",
       "cells": {
-        "specgetty": "no",
+        "specgetty": "part",
         "dossier": "no",
         "neosam": "yes",
         "mstanton": "no",
         "itslame": "no",
-        "opsx": "yes"
+        "opsx": "no"
       },
       "notes": {
         "neosam": "neosam-config",
-        "opsx": "opsx-settings"
+        "opsx": "opsx-renders-nothing",
+        "specgetty": "specgetty-config-tab"
       }
     },
     {
@@ -366,7 +371,7 @@
       "cells": {
         "specgetty": "unknown",
         "dossier": "part",
-        "neosam": "unknown",
+        "neosam": "no",
         "mstanton": "no",
         "itslame": "yes",
         "opsx": "yes"
@@ -374,9 +379,9 @@
       "notes": {
         "specgetty": "specgetty-no-help-key",
         "dossier": "dossier-statusbar",
-        "neosam": "neosam-no-help-key",
+        "neosam": "neosam-no-help",
         "itslame": "itslame-keys",
-        "opsx": "opsx-help"
+        "opsx": "opsx-help-observed"
       }
     }
   ],
@@ -534,23 +539,43 @@
       }
     },
     {
-      "id": "first-paint",
-      "label": "Time to first paint (median of 5)",
+      "id": "usable-screen",
+      "label": "Time to a usable screen (median of 5)",
+      "cells": {
+        "specgetty": "65 ms",
+        "dossier": "130 ms",
+        "neosam": "756 ms",
+        "mstanton": "374 ms",
+        "itslame": "5101 ms",
+        "opsx": "never"
+      },
+      "notes": {
+        "specgetty": "usable-screen",
+        "dossier": "usable-screen",
+        "neosam": "usable-screen",
+        "mstanton": "usable-screen",
+        "itslame": "itslame-slow-start",
+        "opsx": "opsx-never-usable"
+      }
+    },
+    {
+      "id": "first-byte",
+      "label": "Time to first byte (not responsiveness)",
       "cells": {
         "specgetty": "10 ms",
         "dossier": "21 ms",
         "neosam": "7 ms",
         "mstanton": "239 ms",
-        "itslame": "28 ms",
-        "opsx": "355 ms"
+        "itslame": "23 ms",
+        "opsx": "362 ms"
       },
       "notes": {
-        "specgetty": "first-paint",
-        "dossier": "first-paint",
-        "neosam": "first-paint",
-        "mstanton": "first-paint-python",
-        "itslame": "first-paint",
-        "opsx": "first-paint-python"
+        "specgetty": "first-byte",
+        "dossier": "first-byte",
+        "neosam": "first-byte",
+        "mstanton": "first-byte",
+        "itslame": "first-byte",
+        "opsx": "first-byte"
       }
     }
   ],
@@ -559,22 +584,16 @@
     "not-consumed": "Upstream ships a flake, but this repo takes it as a flake = false input anyway, so packaging stays uniform across all six.",
     "glamour": "Uses the glamour markdown renderer, present in go.mod.",
     "tui-markdown": "Uses tui-markdown with the highlight-code feature, declared in Cargo.toml.",
-    "textual-markdown": "Uses Textual's markdown widget.",
-    "watchfiles": "Declares watchfiles as a dependency in pyproject.toml.",
-    "specgetty-no-markdown": "go.mod declares no markdown renderer: the dependencies are bubbletea, bubbles, lipgloss, godirwalk, urfave/cli and yaml.",
     "specgetty-aggregate": "Source aggregates task statistics across changes, so the progress it reports is per project rather than per change.",
     "specgetty-archive": "Source carries an archive flow with idle, confirming and running states. Not exercised in this comparison.",
     "specgetty-rescan": "The README documents `s` to rescan, which is a manual refresh rather than a watcher.",
-    "specgetty-path": "--path selects a project and --zoom starts inside it. The unit is a project, not a change.",
     "specgetty-scan": "Scanning the disk for every OpenSpec project is the tool's purpose.",
     "specgetty-no-filter-key": "No filter or search key appears in the README key table, and no filter string was found in the source. Not confirmed absent.",
     "specgetty-no-help-key": "No help key appears in the README key table. --help works from the command line. An in-interface overlay was not confirmed either way.",
     "dossier-keys": "From the README key table: Space toggles the task under the cursor on the tasks tab, and `e` opens the artifact in $EDITOR.",
     "dossier-filter": "Filter mode is confirmed in the source, which tests entering it with `/`, cancelling with Esc and confirming with Enter.",
     "dossier-path": "--help shows an optional [path] argument. A change directory passed directly must contain .openspec.yaml.",
-    "dossier-reload": "A handful of watcher-shaped references appear in the source, too few to call it either way without running a file-change test.",
     "dossier-statusbar": "The interface carries a persistent status line listing keys rather than a dismissable overlay.",
-    "neosam-specs": "The source mentions specs extensively, but this tool's screens are organised around changes and runs. Not confirmed either way.",
     "neosam-batch": "Batch execution is the most heavily represented feature in the source, together with an explicit Add Dependency action between changes.",
     "neosam-batch-progress": "Source renders batch change progress.",
     "neosam-agent": "The configurable command defaults to variants of `claude`, including `claude --print --dangerously-skip-permissions {prompt}`.",
@@ -582,7 +601,6 @@
     "neosam-archive": "An Archived tab exists for browsing. Whether a change can be archived from the interface was not confirmed.",
     "neosam-filter": "Some filter-shaped references appear in the source, too few to call it either way.",
     "neosam-no-args": "The tool parses no arguments at all. Without a terminal it exits 1 with ENXIO from opening /dev/tty.",
-    "neosam-no-help-key": "No help key was found in the source. Not confirmed absent.",
     "mstanton-scope": "The observed opening screen offers creating a change, opening one, and listing them. Nothing about archives or specs appeared.",
     "mstanton-preview": "A Preview binding exists on ctrl+p. Whether it renders markdown was not confirmed.",
     "mstanton-no-args": "No argument parsing was found; the tool opens its interface immediately.",
@@ -592,22 +610,23 @@
     "itslame-store": "--help documents `-store string`, an OpenSpec store id to use as the workspace root. This is the only tool of the six with it.",
     "itslame-path": "--help documents a positional path argument: a directory containing an openspec/ root.",
     "itslame-refresh": "`r` refreshes manually. No watcher was found.",
-    "opsx-board": "The interface opens on a Board tab with collapsible columns and a priority action.",
-    "opsx-runner": "Runner, Runs and Logs views exist. Whether an agent actually runs from them was not exercised.",
-    "opsx-settings": "A Settings view exists in the source.",
-    "opsx-help": "`?` is bound to a help screen.",
-    "opsx-tasks-tab": "A Tasks tab exists. No toggle or progress action was found in the bindings, so neither is confirmed.",
-    "opsx-diagnostics": "A Diagnostics view exists, which may or may not be validation. Not confirmed.",
-    "opsx-edit-metadata": "`e` edits metadata in the interface. Opening an external $EDITOR was not confirmed.",
-    "opsx-filter": "Filter-shaped references appear in the source but no filter key appears in the bindings.",
-    "opsx-recent-projects": "It remembers recently opened projects, but shows one project at a time.",
-    "opsx-project": "--help documents --project PROJECT, a path to an OpenSpec project root.",
     "opsx-silent-exit": "With a clean HOME and no OpenSpec root in the working directory it exits 0 after 239 bytes, drawing nothing and printing no error. It does not walk up the way the CLI does.",
     "opsx-state": "Writes $XDG_DATA_HOME/opsx-tui/recent-projects.json.",
     "opsx-license": "The tree carries a GPL-3.0 LICENSE file and GitHub reports GPL-3.0, but the README says the license has yet to be defined and that redistribution permission must not be assumed.",
-    "archive-handling": "Archive-shaped references appear in the source but no archive view appears in the tab list.",
     "not-measured": "Not measured in this run.",
-    "first-paint": "Measured on a real pty with the working directory set to the fixture, the shape a tmux popup binding uses. Five runs each; the figure is the median of the delay from exec to the first byte the program writes to the terminal. It is not time to a fully drawn frame, which cannot be measured without asserting on frames.",
-    "first-paint-python": "Same measurement. Both Python tools are an order of magnitude slower than the compiled ones and both miss the sub-200ms budget a tmux popup wants; interpreter and framework startup dominate, not the project size."
+    "opsx-renders-nothing": "Observed by running it: opsx draws its header, switches between views, and shows its help overlay, but every pane is empty. Its source declares this feature (a TabPane, a view, or a binding), so the capability is written; it does not reach the screen in this build. Most likely a consequence of relaxing the textual pin from the declared >=1.0,<3.0 to nixpkgs' 8.2.8, not of the tool as its author intended it. Testing that would need a textual in the declared range, which this nixpkgs does not carry.",
+    "opsx-help-observed": "Observed working: `?` opens a Keyboard Bindings overlay listing the six view keys and quit.",
+    "opsx-project-observed": "Observed: --project selects the root, and the header shows the path given.",
+    "dossier-live-reload-observed": "Observed by running it: a task checkbox edited from outside while the tasks tab was open moved the progress bar from 3/7 to 4/7 with no keypress.",
+    "dossier-toggle-observed": "Observed by running it: Space on the tasks tab wrote through to tasks.md, and `openspec list` then reported 2/7 instead of 3/7.",
+    "neosam-change-specs": "Observed by running it: opening a change lists Proposal, Design, Tasks, Specs and Dependencies, where Specs holds that change's delta specs. There is no project-level specs view; the root screen offers only Active and Archived.",
+    "neosam-no-help": "Observed by running it: `?` does nothing, and no help key appears in the source.",
+    "specgetty-raw-markdown": "Observed by running it: spec and artifact text is shown with its markdown markers intact, so it displays markdown rather than rendering it. go.mod declares no renderer.",
+    "specgetty-config-tab": "Observed by running it: the zoomed project view carries a config tab alongside specs, changes and archive. Whether it edits or only displays was not confirmed.",
+    "specgetty-needs-root": "Observed by running it: started in a project directory with no config it reports 'No OpenSpec projects found.' It wants --zoom --path, or a configured scan root.",
+    "usable-screen": "Time from exec until the rendered screen carries at least 200 printable characters, measured in tmux with a client attached through a pty, five runs, median reported. Each tool is invoked the way it actually works: specgetty with --zoom --path, opsx with --project, the rest bare. This replaces an earlier time-to-first-byte figure, which measured terminal setup and ranked the tools in almost the opposite order.",
+    "itslame-slow-start": "5101 ms median, and 2 of 5 runs never reached a usable screen at all. The figure is tightly clustered (5097 to 5129 ms), which is the signature of a five second timeout. It is not the CLI: a counting shim recorded exactly 3 calls per startup at about 0.32 s each, all returning 0. The wait happens inside the tool, behind a 'Loading OpenSpec workspace...' spinner, and was not isolated further.",
+    "opsx-never-usable": "No run reached a usable screen. It draws a header within about 360 ms and then nothing else. See the note on its empty panes.",
+    "first-byte": "Time from exec to the first byte written to the terminal. Published here only because it is easy to mistake for responsiveness: for a full-screen program it is the terminal setup sequence, and it says nothing about when content appears. Compare the row above."
   }
 }

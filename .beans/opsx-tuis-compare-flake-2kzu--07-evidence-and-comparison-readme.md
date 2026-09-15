@@ -5,7 +5,7 @@ status: completed
 type: milestone
 priority: high
 created_at: 2026-09-15T10:17:45Z
-updated_at: 2026-09-15T12:01:53Z
+updated_at: 2026-09-15T12:49:35Z
 ---
 
 Turn the working flake into the artifact people came for: a README that says what
@@ -35,3 +35,9 @@ fails the gate. The bias disclosure is above the matrices.
 
 The measurement the briefing called most decision-relevant: 7 to 28 ms to first
 paint for the Rust and Go tools, 239 ms and 355 ms for the two Python ones.
+
+## Reopened and completed again
+
+The milestone was completed on source-derived evidence. Driving the tools
+afterwards changed about a dozen cells and reversed the timing conclusion, so it
+was reopened for one epic and closed again on observed evidence.
