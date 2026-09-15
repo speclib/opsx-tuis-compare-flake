@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-ecsi
 title: 05 Fixture project
-status: todo
+status: in-progress
 type: milestone
 priority: high
 created_at: 2026-09-15T10:16:50Z
-updated_at: 2026-09-15T10:16:50Z
+updated_at: 2026-09-15T10:52:57Z
 ---
 
 Build the shared fixture OpenSpec project that every tool is judged on, plus a

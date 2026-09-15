@@ -5,7 +5,11 @@
 #
 # An e2e scenario is a shell script under tests/e2e/. Adding one is adding a
 # file: nothing in flake.nix needs editing.
-{ pkgs }:
+{
+  pkgs,
+  # The package set needs the flake inputs to build the fixture.
+  flakeInputs,
+}:
 
 let
   inherit (pkgs) lib;
@@ -138,12 +142,17 @@ let
         echo "${name}" > "$out/started"
       '';
 
+  # Scenarios that need the fixture get it as $OST_FIXTURE, declared with a
+  # `# fixture` marker line so the dependency stays next to the script.
+  demoProject = (import ../pkgs { inherit pkgs; inputs = flakeInputs; }).demo-project;
+
   # Runs one scenario script under the sandbox.
   mkE2E =
     {
       name,
       script,
       packages ? [ ],
+      needsFixture ? false,
     }:
     pkgs.runCommand "e2e-${name}"
       {
@@ -157,6 +166,12 @@ let
       }
       ''
         ${preamble}
+
+        ${lib.optionalString needsFixture ''
+          cp -r ${demoProject} "$TMPDIR/work/fixture"
+          chmod -R u+w "$TMPDIR/work/fixture"
+          export OST_FIXTURE="$TMPDIR/work/fixture"
+        ''}
 
         echo "=== e2e-${name} ==="
         bash ${script}
@@ -192,6 +207,7 @@ let
     mkE2E {
       inherit name script;
       packages = map (p: pkgs.${p}) requires;
+      needsFixture = lib.hasInfix "$OST_FIXTURE" (builtins.readFile script);
     };
 
   # checks.<system>.e2e-<name>, one per script found on disk.

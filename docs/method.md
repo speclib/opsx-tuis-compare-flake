@@ -122,6 +122,29 @@ pty start check counts a clean early exit as a pass, so it would claim the tool
 started when it had not. Any scenario that means to start this tool must pass
 it `--project`.
 
+## The openspec CLI cannot write straight to a Nix build log
+
+`openspec validate` with its stdout attached directly to a builder's stdout
+redraws its progress spinner without bound and never returns. One attempt
+reached an **821 MB** build log before it was killed; the tail was entirely
+cursor-up and erase-line escape sequences.
+
+Redirecting or piping its output stops it. The cause was isolated by
+elimination, with the same CLI version, environment and input in each case:
+
+| Suspected cause          | Ruled out by                                          |
+|--------------------------|--------------------------------------------------------|
+| Telemetry write on first run | Seeding the config with telemetry off changed nothing |
+| No network in the sandbox | A black-holed proxy outside Nix reproduced nothing    |
+| `TERM`, `CI`, `NO_COLOR`  | All four combinations behaved identically             |
+| `--strict`                | Both forms behaved identically                        |
+| The fixture's content     | A trivial one-spec project behaved the same           |
+| Output going to a pipe    | The only change that made it finish, in 1.6 seconds   |
+
+Every invocation of the CLI inside a derivation in this repo therefore
+redirects to a file. Anyone adding a check that runs `openspec` must do the
+same, or their build will not terminate.
+
 ## Degradations
 
 None. All six tools build and run. The briefing anticipated that `opsx` or

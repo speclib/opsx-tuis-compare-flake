@@ -1,0 +1,11 @@
+schema: spec-driven
+
+context: |
+  Demo project for opsx-tuis-compare-flake.
+
+  This is not a real product. It exists so that every OpenSpec TUI under
+  comparison is judged on identical data: the same two active changes, the same
+  archived change, the same partially completed task list, and the same spec
+  deltas.
+
+  Nothing here should be edited to make one tool look better than another.

@@ -95,7 +95,10 @@
       checks = forAllSystems (
         pkgs:
         let
-          harness = import ./tests { inherit pkgs; };
+          harness = import ./tests {
+            inherit pkgs;
+            flakeInputs = inputs;
+          };
           packageSet = import ./pkgs { inherit pkgs inputs; };
         in
         harness.scenarioChecks // harness.selfChecks // harness.mkToolChecks packageSet

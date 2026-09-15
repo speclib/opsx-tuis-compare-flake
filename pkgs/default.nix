@@ -19,4 +19,6 @@ in
   neosam = callTool ./neosam.nix { };
   mstanton = callTool ./mstanton.nix { };
   opsx = callTool ./opsx.nix { };
+
+  demo-project = callTool ./demo-project.nix { };
 }
