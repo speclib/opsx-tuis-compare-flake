@@ -86,12 +86,43 @@ the drawn output read back.
 | Tool     | Upstream pin              | Built against  | Observed                          |
 |----------|---------------------------|----------------|-----------------------------------|
 | mstanton | `textual>=0.41.0,<1.0.0`  | textual 8.2.8  | Renders its real menu, not an error screen |
+| opsx     | `textual>=1.0,<3.0`       | textual 8.2.8  | Renders its header and board tab when given a project |
 
 A pty start check cannot tell a working Textual program from one that crashed
 into Textual's own error screen, since both stay up. That is why the check is
 not permitted to assert on rendered output and why this table exists instead.
 Recheck it when either version moves.
 
+## Per-user state written by the tools
+
+Observed after one run of `opsx-tui` under a redirected `HOME`:
+
+| Path                                         | Written by                                  |
+|----------------------------------------------|---------------------------------------------|
+| `$XDG_DATA_HOME/opsx-tui/recent-projects.json` | opsx-tui, remembering projects via platformdirs |
+| `$XDG_CONFIG_HOME/openspec/config.json`        | the `openspec` CLI, a telemetry anonymousId |
+
+Both land in the user's real directories if nothing redirects them. This is the
+concrete reason the harness sets `XDG_DATA_HOME` and `XDG_CONFIG_HOME` and not
+only `HOME`.
+
+The first one also explains a confusing observation during packaging: a second
+run appeared to find a project from a directory that had none, because it had
+remembered the previous one.
+
+## Tools that can exit successfully without starting
+
+`opsx-tui` with a clean `HOME` and no OpenSpec root in the working directory
+exits 0 after 239 bytes of terminal setup and teardown, drawing nothing and
+printing no error. It does not walk up from the working directory the way the
+`openspec` CLI does.
+
+Its check is therefore a link-and-help check rather than a pty start check: a
+pty start check counts a clean early exit as a pass, so it would claim the tool
+started when it had not. Any scenario that means to start this tool must pass
+it `--project`.
+
 ## Degradations
 
-None yet.
+None. All six tools build and run. The briefing anticipated that `opsx` or
+`mstanton` might not; both do, with relaxed dependency pins recorded above.

@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-589i
 title: 04 Package the Python TUIs
-status: in-progress
+status: completed
 type: milestone
 priority: high
 created_at: 2026-09-15T10:16:50Z
-updated_at: 2026-09-15T10:47:42Z
+updated_at: 2026-09-15T10:52:45Z
 ---
 
 Package the two Python TUIs with `buildPythonApplication`. Neither repo ships a
@@ -22,3 +22,12 @@ footnote. Do not block the flake.
 - [ ] `nix build .#mstanton .#opsx` succeeds, or a degradation is recorded for
       each one that does not
 - [ ] Every degradation has a named failure with the actual error text
+
+## Summary of Changes
+
+Both Python tools build and run. No degradation, against the briefing's
+expectation that one of them would need it.
+
+Both needed relaxed pins because there is one nixpkgs for the whole flake, so
+both were started by hand and observed rather than trusted. `docs/method.md`
+records the pin, the built-against version and what was seen for each.

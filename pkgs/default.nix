@@ -18,4 +18,5 @@ in
   itslame = callTool ./itslame.nix { };
   neosam = callTool ./neosam.nix { };
   mstanton = callTool ./mstanton.nix { };
+  opsx = callTool ./opsx.nix { };
 }
