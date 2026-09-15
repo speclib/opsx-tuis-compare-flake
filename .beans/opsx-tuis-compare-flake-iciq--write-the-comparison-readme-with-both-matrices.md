@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-iciq
 title: Write the comparison README with both matrices
-status: todo
+status: completed
 type: epic
 priority: high
 created_at: 2026-09-15T10:17:45Z
-updated_at: 2026-09-15T10:17:45Z
+updated_at: 2026-09-15T12:01:19Z
 parent: opsx-tuis-compare-flake-2kzu
 blocked_by:
     - opsx-tuis-compare-flake-rzpk
@@ -44,3 +44,23 @@ redistribution channel. Include the snapshot date derived from the pinned revs.
 - [ ] Every partial and `?` cell has a footnote
 - [ ] Bias disclosure present
 - [ ] Prose passes the repo prose rules: no em dash, no en dash, straight quotes
+
+## Summary of Changes
+
+`README.md` is generated from `docs/README.template.md` plus
+`data/comparison.json`. The briefing asks for `--matrix` to reprint the
+README's table; generating the README from what the command prints is the same
+requirement with the drift removed.
+
+`checks.<system>.readme-is-current` diffs the committed file against the
+generated one and names the regeneration command when they differ. Falsified by
+appending a line: it failed with "README.md is stale." The generator also fails
+if any placeholder survives, so a renamed section is a build error rather than a
+page with `{{FEATURES}}` in it.
+
+One deviation from the briefing's section order: the bias disclosure moves from
+item seven to directly under the opening. The briefing's own reasoning is that
+the artifact is worthless as a comparison without it, and a disclosure below the
+matrices is one a reader reaches after already forming a view.
+
+No TODO, no placeholder, prose passes the repo typography rules.
