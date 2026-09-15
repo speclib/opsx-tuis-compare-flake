@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-pg6i
 title: Package itslame openspec-tui (Go, CLI JSON client)
-status: todo
+status: completed
 type: epic
 priority: high
 created_at: 2026-09-15T10:16:14Z
-updated_at: 2026-09-15T10:16:14Z
+updated_at: 2026-09-15T10:44:42Z
 parent: opsx-tuis-compare-flake-35mq
 blocked_by:
     - opsx-tuis-compare-flake-ogon
@@ -37,3 +37,19 @@ package output and must never reach `packages.default` unwrapped.
 - [ ] `nix build .#itslame` succeeds with a committed real hash
 - [ ] `result/bin/openspec-tui --help` exits without an error
 - [ ] Smoke check `checks.<system>.smoke-itslame` passes
+
+## Summary of Changes
+
+`pkgs/itslame.nix` builds the repo root `main.go` with `buildGoModule`. Vendor
+hash `sha256-jt2Q+Pq2dpqROcbyhstDgXCMa7E70/XQPQREUiFDSBE=`, resolved by
+building. Snapshot stamped over upstream's `var version = "dev"`.
+
+The runtime dependency is confirmed in source and by running it:
+`main.go:40` calls `exec.LookPath("openspec")` and exits 1 with an install
+hint. Recorded as `passthru.runtimeDeps` for the milestone 06 wrapper.
+
+Noted in `docs/method.md`: `--help` and `--version` run before that check, so
+this tool's smoke check proves less than the others'.
+
+Observed from `--help`: `-store string` exists, the only one of the six with
+it. A positional `path` selects a workspace, not a change.

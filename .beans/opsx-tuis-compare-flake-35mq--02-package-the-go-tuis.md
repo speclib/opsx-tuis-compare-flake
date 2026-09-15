@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-35mq
 title: 02 Package the Go TUIs
-status: in-progress
+status: completed
 type: milestone
 priority: high
 created_at: 2026-09-15T10:16:14Z
-updated_at: 2026-09-15T10:38:58Z
+updated_at: 2026-09-15T10:44:42Z
 ---
 
 Package the three Go TUIs with `buildGoModule`. Each gets a real `vendorHash`,
@@ -17,3 +17,16 @@ Briefing: sections 1, 2.4.
 - [ ] `nix build .#specgetty .#dossier .#itslame` succeeds
 - [ ] No `lib.fakeHash` anywhere in the tree
 - [ ] A link-and-help smoke check passes for each of the three
+
+## Summary of Changes
+
+All three Go tools build with real hashes, and each has a passing link-and-help
+smoke check.
+
+| Tool      | Vendor hash resolved by                         |
+|-----------|-------------------------------------------------|
+| specgetty | Confirmed upstream's own hash by building       |
+| dossier   | Building with a placeholder, reading the error  |
+| itslame   | Building with a placeholder, reading the error  |
+
+No placeholder hash reached a commit. `grep -rn fakeHash pkgs/` is empty.

@@ -15,4 +15,5 @@ in
 {
   specgetty = callTool ./specgetty.nix { };
   dossier = callTool ./dossier.nix { };
+  itslame = callTool ./itslame.nix { };
 }

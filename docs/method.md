@@ -63,6 +63,15 @@ a falsification a scenario can carry itself, so it does.
 A smoke check is a link-and-help check. It does not prove the tool works, and
 its derivation name says so.
 
+## What a smoke check proves per tool
+
+The link-and-help check runs `--help` before the tool reaches its real work, so
+for some tools it proves less than for others.
+
+| Tool    | Caveat                                                                     |
+|---------|-----------------------------------------------------------------------------|
+| itslame | `--help` and `--version` run before its `exec.LookPath("openspec")` check, so a green smoke check does not prove the CLI was found |
+
 ## Degradations
 
 None yet.
