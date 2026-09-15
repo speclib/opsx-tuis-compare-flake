@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-e385
 title: Package neosam openspec-tui (Rust, implementation runner)
-status: todo
+status: completed
 type: epic
 priority: high
 created_at: 2026-09-15T10:16:14Z
-updated_at: 2026-09-15T10:16:14Z
+updated_at: 2026-09-15T10:47:31Z
 parent: opsx-tuis-compare-flake-3b8w
 blocked_by:
     - opsx-tuis-compare-flake-ogon
@@ -37,3 +37,20 @@ No wrapper here. Do not add a Rust toolchain input speculatively.
 - [ ] `result/bin/openspec-tui --help` exits without an error
 - [ ] Smoke check `checks.<system>.smoke-neosam` passes
 - [ ] If a toolchain input was added, the design says which build error forced it
+
+## Summary of Changes
+
+`pkgs/neosam.nix` builds with `rustPlatform.buildRustPackage` and
+`cargoLock.lockFile`. No toolchain input was added: nixpkgs rustc 1.98.1
+accepts edition 2024 and resolved all 249 locked packages, so the briefing's
+escape hatch to `fenix` or `rust-overlay` was not needed.
+
+This tool has no argument parsing. Without a terminal it exits 1 with
+`Os { code: 6, ... "No such device or address" }`, which is ENXIO from opening
+`/dev/tty`, so a link-and-help check is unavailable rather than merely awkward.
+
+Added `mkStartCheck` to the harness: a real pty, a bounded wait, pass only if
+the program is still up, and no assertion about what was drawn. Verified it
+works inside the Nix build sandbox with no sandbox relaxation. Falsified
+against a binary that exits 4. A package picks its mode with
+`passthru.smoke.mode`, because which check is honest is a fact about the tool.

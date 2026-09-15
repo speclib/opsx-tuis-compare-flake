@@ -90,6 +90,54 @@ let
         cp help.out help.err "$out/" 2>/dev/null || true
       '';
 
+  # Proves a terminal program starts and stays up on a real pty.
+  #
+  # Some tools have no argument parsing at all: they open the terminal
+  # immediately and exit non-zero without one, so a link-and-help check is not
+  # available for them. This is the honest substitute. It still asserts nothing
+  # about rendered output.
+  mkStartCheck =
+    {
+      name,
+      package,
+      bin,
+      timeout ? 5,
+      extraPackages ? [ ],
+    }:
+    pkgs.runCommand "smoke-${name}-starts-on-a-pty"
+      {
+        nativeBuildInputs = [
+          pkgs.bash
+          pkgs.coreutils
+          pyRun
+        ]
+        ++ extraPackages;
+        meta = {
+          description =
+            "Pty start check for ${name}: the binary exists, links, and stays up for "
+            + "${toString timeout}s on a real terminal. Not a functional check, and it "
+            + "asserts nothing about what was drawn.";
+        };
+      }
+      ''
+        ${preamble}
+
+        target="${package}/bin/${bin}"
+
+        if [ ! -x "$target" ]; then
+          echo "smoke-${name}: no executable at $target" >&2
+          ls -la "${package}/bin" >&2 || true
+          exit 1
+        fi
+
+        mkdir -p run && cd run
+        ost-pty-run --timeout ${toString timeout} -- "$target"
+
+        echo "smoke-${name}: started and stayed up on a pty"
+        mkdir -p "$out"
+        echo "${name}" > "$out/started"
+      '';
+
   # Runs one scenario script under the sandbox.
   mkE2E =
     {
@@ -162,13 +210,27 @@ let
     in
     lib.mapAttrs' (
       name: pkg:
-      lib.nameValuePair "smoke-${name}" (mkSmokeCheck {
-        inherit name;
-        package = pkg;
-        inherit (pkg.passthru.smoke) bin;
-        args = pkg.passthru.smoke.args or [ "--help" ];
-        acceptExit = pkg.passthru.smoke.acceptExit or [ 0 ];
-      })
+      let
+        smoke = pkg.passthru.smoke;
+      in
+      lib.nameValuePair "smoke-${name}" (
+        if (smoke.mode or "help") == "pty" then
+          mkStartCheck {
+            inherit name;
+            package = pkg;
+            inherit (smoke) bin;
+            timeout = smoke.timeout or 5;
+            extraPackages = map (p: pkgs.${p}) (pkg.passthru.runtimeDeps or [ ]);
+          }
+        else
+          mkSmokeCheck {
+            inherit name;
+            package = pkg;
+            inherit (smoke) bin;
+            args = smoke.args or [ "--help" ];
+            acceptExit = smoke.acceptExit or [ 0 ];
+          }
+      )
     ) checkable;
 
   # Proves the smoke constructor itself works, before any tool is packaged.
@@ -187,6 +249,7 @@ in
 {
   inherit
     mkSmokeCheck
+    mkStartCheck
     mkToolChecks
     mkE2E
     scenarioChecks

@@ -48,6 +48,7 @@ on purpose and the failure observed.
 | `assert_sandboxed` made to always return 0    | `e2e-sandbox-isolates-home` failed: "assert_sandboxed accepted HOME=/tmp" |
 | A smoke check pointed at a non-existent binary | The check failed and listed what the package's `bin` did contain     |
 | Pty runner given a program that exits 3       | Covered inside `e2e-pty-helper-behaviour`, which asserts the failure  |
+| A pty start check pointed at a binary exiting 4 | The check failed: "pty-run: exited 4 before the 3.0s deadline: FAIL" |
 
 The first two cannot live inside `nix flake check`, because a check that must
 fail would fail the gate. They are run by hand and recorded here. The third is
@@ -58,6 +59,7 @@ a falsification a scenario can carry itself, so it does.
 | Check          | Proves                                                          |
 |----------------|-----------------------------------------------------------------|
 | `smoke-<tool>` | The binary exists, dynamically links, and answers `--help`       |
+| `smoke-<tool>` in pty mode | The binary exists, links, and stays up on a real terminal for a bounded time |
 | `e2e-<name>`   | The named scenario's assertions held under a sandboxed `HOME`    |
 
 A smoke check is a link-and-help check. It does not prove the tool works, and
@@ -71,6 +73,7 @@ for some tools it proves less than for others.
 | Tool    | Caveat                                                                     |
 |---------|-----------------------------------------------------------------------------|
 | itslame | `--help` and `--version` run before its `exec.LookPath("openspec")` check, so a green smoke check does not prove the CLI was found |
+| neosam  | Has no argument parsing at all. `--help` exits 1 with ENXIO from opening `/dev/tty`, so it gets a pty start check instead |
 
 ## Degradations
 
