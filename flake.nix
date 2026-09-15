@@ -92,7 +92,13 @@
 
       apps = forAllSystems (pkgs: { });
 
-      checks = forAllSystems (pkgs: { });
+      checks = forAllSystems (
+        pkgs:
+        let
+          harness = import ./tests { inherit pkgs; };
+        in
+        harness.scenarioChecks // harness.selfChecks
+      );
 
       formatter = forAllSystems (pkgs: pkgs.nixfmt);
     };

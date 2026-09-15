@@ -38,6 +38,31 @@ Every tool is built from a revision pinned in `flake.lock`. The package version
 records it as `0-unstable-<date>+<shortRev>`, and `nix eval .#lib.versions`
 prints the whole set.
 
+## How the tests were falsified
+
+A test that cannot fail proves nothing, so each piece of the harness was broken
+on purpose and the failure observed.
+
+| What was broken                              | What failed, and how                                                 |
+|----------------------------------------------|----------------------------------------------------------------------|
+| `assert_sandboxed` made to always return 0    | `e2e-sandbox-isolates-home` failed: "assert_sandboxed accepted HOME=/tmp" |
+| A smoke check pointed at a non-existent binary | The check failed and listed what the package's `bin` did contain     |
+| Pty runner given a program that exits 3       | Covered inside `e2e-pty-helper-behaviour`, which asserts the failure  |
+
+The first two cannot live inside `nix flake check`, because a check that must
+fail would fail the gate. They are run by hand and recorded here. The third is
+a falsification a scenario can carry itself, so it does.
+
+## What a green check means
+
+| Check          | Proves                                                          |
+|----------------|-----------------------------------------------------------------|
+| `smoke-<tool>` | The binary exists, dynamically links, and answers `--help`       |
+| `e2e-<name>`   | The named scenario's assertions held under a sandboxed `HOME`    |
+
+A smoke check is a link-and-help check. It does not prove the tool works, and
+its derivation name says so.
+
 ## Degradations
 
 None yet.
