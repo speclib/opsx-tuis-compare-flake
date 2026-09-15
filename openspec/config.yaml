@@ -37,8 +37,7 @@ rules:
     - Say explicitly when a decision was forced by an upstream limitation.
   tasks:
     - Every task is verifiable by a command someone else can run.
-    - The final tasks are always the three test layers: `nix flake check`, the
-      per-package smoke checks, and the e2e scenarios in `tests/e2e/`.
+    - "The final tasks are always the three test layers: `nix flake check`, the per-package smoke checks, and the e2e scenarios in `tests/e2e/`."
     - No task may leave a fake hash or a TODO cell behind.
 
 operations:

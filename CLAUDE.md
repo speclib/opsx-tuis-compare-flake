@@ -89,7 +89,7 @@ outputs = { self, nixpkgs, ... }@inputs:
     systems = [
       "x86_64-linux"
       "aarch64-linux"
-      "x86_64-darwin"
+      # x86_64-darwin is absent: nixpkgs 26.11 dropped it. See docs/method.md.
       "aarch64-darwin"
     ];
     forAllSystems = f:

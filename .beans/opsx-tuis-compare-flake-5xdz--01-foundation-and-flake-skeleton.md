@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-5xdz
 title: 01 Foundation and flake skeleton
-status: todo
+status: in-progress
 type: milestone
 priority: high
 created_at: 2026-09-15T10:15:45Z
-updated_at: 2026-09-15T10:15:45Z
+updated_at: 2026-09-15T10:28:38Z
 ---
 
 Get a flake that evaluates on all four systems, a test harness the later
