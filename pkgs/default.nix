@@ -17,4 +17,5 @@ in
   dossier = callTool ./dossier.nix { };
   itslame = callTool ./itslame.nix { };
   neosam = callTool ./neosam.nix { };
+  mstanton = callTool ./mstanton.nix { };
 }

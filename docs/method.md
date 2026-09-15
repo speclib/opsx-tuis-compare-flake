@@ -75,6 +75,23 @@ for some tools it proves less than for others.
 | itslame | `--help` and `--version` run before its `exec.LookPath("openspec")` check, so a green smoke check does not prove the CLI was found |
 | neosam  | Has no argument parsing at all. `--help` exits 1 with ENXIO from opening `/dev/tty`, so it gets a pty start check instead |
 
+## Relaxed dependency pins
+
+Neither Python tool ships a lockfile, and there is one nixpkgs for the whole
+flake, so both are built with their version constraints relaxed. That crosses
+boundaries upstream excluded, which makes a green build worthless as evidence
+on its own. Each relaxed tool was therefore started by hand on a real pty and
+the drawn output read back.
+
+| Tool     | Upstream pin              | Built against  | Observed                          |
+|----------|---------------------------|----------------|-----------------------------------|
+| mstanton | `textual>=0.41.0,<1.0.0`  | textual 8.2.8  | Renders its real menu, not an error screen |
+
+A pty start check cannot tell a working Textual program from one that crashed
+into Textual's own error screen, since both stay up. That is why the check is
+not permitted to assert on rendered output and why this table exists instead.
+Recheck it when either version moves.
+
 ## Degradations
 
 None yet.

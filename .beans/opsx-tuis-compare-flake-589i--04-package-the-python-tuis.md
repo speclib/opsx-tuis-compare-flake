@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-589i
 title: 04 Package the Python TUIs
-status: todo
+status: in-progress
 type: milestone
 priority: high
 created_at: 2026-09-15T10:16:50Z
-updated_at: 2026-09-15T10:16:50Z
+updated_at: 2026-09-15T10:47:42Z
 ---
 
 Package the two Python TUIs with `buildPythonApplication`. Neither repo ships a
