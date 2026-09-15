@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-aw79
 title: Complete the e2e scenario suite
-status: todo
+status: completed
 type: epic
 priority: high
 created_at: 2026-09-15T10:18:25Z
-updated_at: 2026-09-15T10:18:25Z
+updated_at: 2026-09-15T12:04:08Z
 parent: opsx-tuis-compare-flake-yx1r
 blocked_by:
     - opsx-tuis-compare-flake-c55b
@@ -42,3 +42,22 @@ that cannot fail proves nothing. Record how each one was falsified.
 - [ ] All seven scenarios implemented and wired into `checks.<system>.e2e-*`
 - [ ] `nix flake check` runs all of them and passes
 - [ ] Each scenario has a recorded falsification
+
+## Summary of Changes
+
+All seven required scenarios exist, plus one more for the comparison data. Six
+of them landed alongside the work they protect; `each-tool-starts` could not
+exist until every tool and the fixture did.
+
+Its count assertion is the point: starting six named tools proves those six
+start, not that the suite still covers the environment, and that failure mode is
+silent. It compares the number started against the `ost-` commands the
+environment exposes.
+
+`ost-opsx` is the one tool invoked differently, with `--project`, because bare
+it exits 0 after 46 bytes having drawn nothing, and a pty start check counts a
+clean early exit as a pass. The scenario ends by demonstrating that rather than
+hiding it in a comment, so the reason stays visible and upstream changing it
+would be noticed.
+
+Check set is now 18: 6 smoke, 10 e2e, 2 self-checks.

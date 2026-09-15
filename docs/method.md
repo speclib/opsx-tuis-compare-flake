@@ -58,6 +58,23 @@ The first two cannot live inside `nix flake check`, because a check that must
 fail would fail the gate. They are run by hand and recorded here. The third is
 a falsification a scenario can carry itself, so it does.
 
+## The check set
+
+| Check                       | What it proves                                                 |
+|-----------------------------|-----------------------------------------------------------------|
+| `smoke-<tool>`              | The binary exists, links, and answers `--help`, or stays up on a pty |
+| `e2e-sandbox-isolates-home` | The sandbox helper redirects HOME and its guard can fail        |
+| `e2e-pty-helper-behaviour`  | All three exit rules of the pty runner, including the failing one |
+| `e2e-fixture-valid`         | The fixture is a valid OpenSpec project with the intended shape |
+| `e2e-store-resolution`      | A store registers inside the sandbox and resolves separately from cwd |
+| `e2e-default-env`           | Exactly the expected commands are on PATH, and wrappers supply the CLI |
+| `e2e-no-name-collision`     | No upstream binary name reaches PATH                            |
+| `e2e-fixture-writable`      | `ost-demo` hands over a writable, independent copy              |
+| `e2e-no-host-writes`        | A full run leaves a decoy home byte-for-byte unchanged          |
+| `e2e-each-tool-starts`      | Every tool the environment exposes starts against the fixture   |
+| `e2e-comparison-data`       | Every matrix cell is decided and every soft cell explained      |
+| `readme-is-current`         | The committed README matches what the data produces             |
+
 ## What a green check means
 
 | Check          | Proves                                                          |

@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-yx1r
 title: 08 Acceptance and alpha release
-status: todo
+status: in-progress
 type: milestone
 priority: high
 created_at: 2026-09-15T10:18:25Z
-updated_at: 2026-09-15T10:18:25Z
+updated_at: 2026-09-15T12:02:19Z
 ---
 
 Prove the PoC against the briefing's own acceptance criteria from a clean
