@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-35mq
 title: 02 Package the Go TUIs
-status: todo
+status: in-progress
 type: milestone
 priority: high
 created_at: 2026-09-15T10:16:14Z
-updated_at: 2026-09-15T10:16:14Z
+updated_at: 2026-09-15T10:38:58Z
 ---
 
 Package the three Go TUIs with `buildGoModule`. Each gets a real `vendorHash`,

@@ -151,6 +151,26 @@ let
     fileName: kind:
     lib.nameValuePair "e2e-${lib.removeSuffix ".sh" fileName}" (mkScenarioCheck fileName kind)
   ) scenarioFiles;
+  # One smoke check per packaged tool that declares passthru.smoke and is not
+  # marked broken. Driven off the package set, so adding a tool adds a check.
+  mkToolChecks =
+    packageSet:
+    let
+      checkable = lib.filterAttrs (
+        _name: pkg: (pkg.passthru or { }) ? smoke && !(pkg.meta.broken or false)
+      ) packageSet;
+    in
+    lib.mapAttrs' (
+      name: pkg:
+      lib.nameValuePair "smoke-${name}" (mkSmokeCheck {
+        inherit name;
+        package = pkg;
+        inherit (pkg.passthru.smoke) bin;
+        args = pkg.passthru.smoke.args or [ "--help" ];
+        acceptExit = pkg.passthru.smoke.acceptExit or [ 0 ];
+      })
+    ) checkable;
+
   # Proves the smoke constructor itself works, before any tool is packaged.
   # Its falsification (a bin name that does not exist) is exercised by hand and
   # recorded in docs/method.md, because a check that must fail cannot live in
@@ -167,6 +187,7 @@ in
 {
   inherit
     mkSmokeCheck
+    mkToolChecks
     mkE2E
     scenarioChecks
     selfChecks

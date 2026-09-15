@@ -96,8 +96,9 @@
         pkgs:
         let
           harness = import ./tests { inherit pkgs; };
+          packageSet = import ./pkgs { inherit pkgs inputs; };
         in
-        harness.scenarioChecks // harness.selfChecks
+        harness.scenarioChecks // harness.selfChecks // harness.mkToolChecks packageSet
       );
 
       formatter = forAllSystems (pkgs: pkgs.nixfmt);

@@ -13,5 +13,5 @@ let
     pkgs.callPackage path ({ inherit inputs mkVersion; } // args);
 in
 {
-  # Populated by milestones 02 through 06.
+  specgetty = callTool ./specgetty.nix { };
 }
