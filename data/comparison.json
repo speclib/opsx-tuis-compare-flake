@@ -1,0 +1,239 @@
+{
+  "_comment": [
+    "The single source for both matrices. ost-compare --matrix renders it and",
+    "the README's tables are generated from it, so the two cannot drift.",
+    "",
+    "Cell values: yes | no | part | unknown.",
+    "  yes     observed by running the tool, or read directly in its source",
+    "  no      observed absent by running it, or absent from its source",
+    "  part    present but incomplete, or claimed by a README and not verified",
+    "  unknown could not be determined; the note says what was checked",
+    "",
+    "Every cell that is not yes or no carries a note. See docs/method.md."
+  ],
+
+  "snapshotNote": "Every tool is built from a revision pinned in flake.lock. Run `nix eval --json .#lib.versions` for the exact set.",
+
+  "tools": [
+    {
+      "id": "specgetty",
+      "command": "ost-specgetty",
+      "upstream": "speclib/specgetty",
+      "binary": "spg",
+      "category": "fleet scanner",
+      "blurb": "Finds every OpenSpec project on disk and reports status across all of them. The only tool here whose unit is the machine rather than one project."
+    },
+    {
+      "id": "dossier",
+      "command": "ost-dossier",
+      "upstream": "fselich/dossier",
+      "binary": "dossier",
+      "category": "reader",
+      "blurb": "A reader for one project, parsing the filesystem directly. The most finished of the six: tabbed artifacts, rendered markdown, filtering, and task toggling."
+    },
+    {
+      "id": "neosam",
+      "command": "ost-neosam",
+      "upstream": "neosam/openspec-tui",
+      "binary": "openspec-tui",
+      "category": "implementation runner",
+      "blurb": "Not a reader. It runs changes: batch execution, a dependency graph between them, a configurable agent command, and an in-app config editor."
+    },
+    {
+      "id": "mstanton",
+      "command": "ost-mstanton",
+      "upstream": "mstanton/openspec-tui",
+      "binary": "openspec-tui",
+      "category": "author",
+      "blurb": "An authoring front end. Its opening screen offers creating a change, opening one, and listing them. Three commits, and its README points at a different repository."
+    },
+    {
+      "id": "itslame",
+      "command": "ost-itslame",
+      "upstream": "ItsLame/openspec-tui",
+      "binary": "openspec-tui",
+      "category": "reader",
+      "blurb": "The only tool that drives the openspec CLI JSON API instead of parsing files, which is why it is also the only one with --store. Validate, archive and task toggling from inside the interface."
+    },
+    {
+      "id": "opsx",
+      "command": "ost-opsx",
+      "upstream": "fsmw/opsx-tui",
+      "binary": "opsx-tui",
+      "category": "control center",
+      "blurb": "The widest ambition: a Kanban board, an agent runner with its own logs and runs views, settings, and diagnostics. Eight commits, and the README reads as a roadmap."
+    }
+  ],
+
+  "features": [
+    { "id": "browse-active", "label": "Browse active changes",
+      "cells": { "specgetty": "yes", "dossier": "yes", "neosam": "yes", "mstanton": "yes", "itslame": "yes", "opsx": "yes" } },
+
+    { "id": "browse-archived", "label": "Browse archived changes",
+      "cells": { "specgetty": "yes", "dossier": "yes", "neosam": "yes", "mstanton": "no", "itslame": "yes", "opsx": "unknown" },
+      "notes": { "opsx": "archive-handling", "mstanton": "mstanton-scope" } },
+
+    { "id": "browse-specs", "label": "Browse project specs",
+      "cells": { "specgetty": "yes", "dossier": "yes", "neosam": "unknown", "mstanton": "unknown", "itslame": "yes", "opsx": "yes" },
+      "notes": { "neosam": "neosam-specs", "mstanton": "mstanton-scope" } },
+
+    { "id": "render-markdown", "label": "Renders markdown",
+      "cells": { "specgetty": "no", "dossier": "yes", "neosam": "yes", "mstanton": "part", "itslame": "yes", "opsx": "yes" },
+      "notes": { "specgetty": "specgetty-no-markdown", "dossier": "glamour", "neosam": "tui-markdown", "mstanton": "mstanton-preview", "itslame": "glamour", "opsx": "textual-markdown" } },
+
+    { "id": "toggle-tasks", "label": "Toggle tasks in place",
+      "cells": { "specgetty": "no", "dossier": "yes", "neosam": "no", "mstanton": "no", "itslame": "yes", "opsx": "unknown" },
+      "notes": { "dossier": "dossier-keys", "itslame": "itslame-keys", "opsx": "opsx-tasks-tab" } },
+
+    { "id": "task-progress", "label": "Task progress indicator",
+      "cells": { "specgetty": "yes", "dossier": "yes", "neosam": "yes", "mstanton": "no", "itslame": "yes", "opsx": "unknown" },
+      "notes": { "specgetty": "specgetty-aggregate", "neosam": "neosam-batch-progress", "opsx": "opsx-tasks-tab" } },
+
+    { "id": "validate", "label": "Validate a change",
+      "cells": { "specgetty": "no", "dossier": "no", "neosam": "no", "mstanton": "no", "itslame": "yes", "opsx": "unknown" },
+      "notes": { "itslame": "itslame-keys", "opsx": "opsx-diagnostics" } },
+
+    { "id": "archive-change", "label": "Archive a change",
+      "cells": { "specgetty": "yes", "dossier": "no", "neosam": "unknown", "mstanton": "no", "itslame": "yes", "opsx": "no" },
+      "notes": { "specgetty": "specgetty-archive", "neosam": "neosam-archive", "itslame": "itslame-keys" } },
+
+    { "id": "open-editor", "label": "Open in $EDITOR",
+      "cells": { "specgetty": "no", "dossier": "yes", "neosam": "yes", "mstanton": "no", "itslame": "yes", "opsx": "part" },
+      "notes": { "dossier": "dossier-keys", "itslame": "itslame-keys", "opsx": "opsx-edit-metadata" } },
+
+    { "id": "live-reload", "label": "Live reload on disk change",
+      "cells": { "specgetty": "no", "dossier": "unknown", "neosam": "no", "mstanton": "no", "itslame": "no", "opsx": "yes" },
+      "notes": { "specgetty": "specgetty-rescan", "dossier": "dossier-reload", "itslame": "itslame-refresh", "opsx": "watchfiles" } },
+
+    { "id": "filter-search", "label": "Filter or search",
+      "cells": { "specgetty": "unknown", "dossier": "yes", "neosam": "unknown", "mstanton": "no", "itslame": "yes", "opsx": "unknown" },
+      "notes": { "specgetty": "specgetty-no-filter-key", "dossier": "dossier-filter", "neosam": "neosam-filter", "itslame": "itslame-keys", "opsx": "opsx-filter" } },
+
+    { "id": "path-argument", "label": "Takes a path argument",
+      "cells": { "specgetty": "yes", "dossier": "yes", "neosam": "no", "mstanton": "no", "itslame": "yes", "opsx": "yes" },
+      "notes": { "specgetty": "specgetty-path", "dossier": "dossier-path", "neosam": "neosam-no-args", "itslame": "itslame-path", "opsx": "opsx-project" } },
+
+    { "id": "store-support", "label": "--store support",
+      "cells": { "specgetty": "no", "dossier": "no", "neosam": "no", "mstanton": "no", "itslame": "yes", "opsx": "no" },
+      "notes": { "itslame": "itslame-store" } },
+
+    { "id": "multi-root", "label": "Multi-project or multi-root view",
+      "cells": { "specgetty": "yes", "dossier": "no", "neosam": "no", "mstanton": "no", "itslame": "no", "opsx": "part" },
+      "notes": { "specgetty": "specgetty-scan", "opsx": "opsx-recent-projects" } },
+
+    { "id": "agent-runner", "label": "Runs an agent to implement a change",
+      "cells": { "specgetty": "no", "dossier": "no", "neosam": "yes", "mstanton": "no", "itslame": "no", "opsx": "part" },
+      "notes": { "neosam": "neosam-agent", "opsx": "opsx-runner" } },
+
+    { "id": "batch-ordering", "label": "Batch runs and dependency ordering",
+      "cells": { "specgetty": "no", "dossier": "no", "neosam": "yes", "mstanton": "no", "itslame": "no", "opsx": "no" },
+      "notes": { "neosam": "neosam-batch" } },
+
+    { "id": "kanban", "label": "Kanban or lifecycle board",
+      "cells": { "specgetty": "no", "dossier": "no", "neosam": "no", "mstanton": "no", "itslame": "no", "opsx": "yes" },
+      "notes": { "opsx": "opsx-board" } },
+
+    { "id": "config-editor", "label": "In-app config editor",
+      "cells": { "specgetty": "no", "dossier": "no", "neosam": "yes", "mstanton": "no", "itslame": "no", "opsx": "yes" },
+      "notes": { "neosam": "neosam-config", "opsx": "opsx-settings" } },
+
+    { "id": "help-overlay", "label": "Help overlay",
+      "cells": { "specgetty": "unknown", "dossier": "part", "neosam": "unknown", "mstanton": "no", "itslame": "yes", "opsx": "yes" },
+      "notes": { "specgetty": "specgetty-no-help-key", "dossier": "dossier-statusbar", "neosam": "neosam-no-help-key", "itslame": "itslame-keys", "opsx": "opsx-help" } }
+  ],
+
+  "properties": [
+    { "id": "language", "label": "Language",
+      "cells": { "specgetty": "Go", "dossier": "Go", "neosam": "Rust", "mstanton": "Python", "itslame": "Go", "opsx": "Python" } },
+
+    { "id": "framework", "label": "Interface framework",
+      "cells": { "specgetty": "Bubble Tea", "dossier": "Bubble Tea v2", "neosam": "ratatui", "mstanton": "Textual", "itslame": "Bubble Tea", "opsx": "Textual" } },
+
+    { "id": "data-source", "label": "Data source",
+      "cells": { "specgetty": "filesystem", "dossier": "filesystem", "neosam": "filesystem", "mstanton": "filesystem", "itslame": "openspec CLI JSON", "opsx": "filesystem" },
+      "notes": { "itslame": "itslame-cli" } },
+
+    { "id": "needs-cli", "label": "Needs the openspec CLI at runtime",
+      "cells": { "specgetty": "no", "dossier": "no", "neosam": "no", "mstanton": "no", "itslame": "yes", "opsx": "no" },
+      "notes": { "itslame": "itslame-cli" } },
+
+    { "id": "config-location", "label": "Config location",
+      "cells": { "specgetty": "$XDG_CONFIG_HOME/specgetty/config.yml", "dossier": "none observed", "neosam": "config.yaml in the project", "mstanton": "none observed", "itslame": "none observed", "opsx": "$XDG_DATA_HOME/opsx-tui/" },
+      "notes": { "neosam": "neosam-config", "opsx": "opsx-state" } },
+
+    { "id": "license", "label": "License",
+      "cells": { "specgetty": "MIT", "dossier": "MIT", "neosam": "MIT", "mstanton": "MIT claimed, no LICENSE file", "itslame": "MIT", "opsx": "contradictory" },
+      "notes": { "mstanton": "mstanton-license", "opsx": "opsx-license" } },
+
+    { "id": "own-flake", "label": "Ships its own flake",
+      "cells": { "specgetty": "yes", "dossier": "no", "neosam": "yes", "mstanton": "no", "itslame": "no", "opsx": "no" },
+      "notes": { "specgetty": "not-consumed", "neosam": "not-consumed" } },
+
+    { "id": "binary-name", "label": "Binary name upstream installs",
+      "cells": { "specgetty": "spg", "dossier": "dossier", "neosam": "openspec-tui", "mstanton": "openspec-tui", "itslame": "openspec-tui", "opsx": "opsx-tui" },
+      "notes": { "neosam": "collision", "mstanton": "collision", "itslame": "collision" } },
+
+    { "id": "non-interactive", "label": "Answers --help without a terminal",
+      "cells": { "specgetty": "yes", "dossier": "yes", "neosam": "no", "mstanton": "no", "itslame": "yes", "opsx": "yes" },
+      "notes": { "neosam": "neosam-no-args", "mstanton": "mstanton-no-args" } },
+
+    { "id": "starts-without-project", "label": "Starts with no OpenSpec root in sight",
+      "cells": { "specgetty": "yes", "dossier": "unknown", "neosam": "yes", "mstanton": "yes", "itslame": "unknown", "opsx": "no" },
+      "notes": { "opsx": "opsx-silent-exit", "dossier": "not-measured", "itslame": "not-measured" } }
+  ],
+
+  "notes": {
+    "collision": "Three upstream projects install a binary with this name. They cannot coexist on one PATH, which is why this flake exposes ost- prefixed names instead.",
+    "not-consumed": "Upstream ships a flake, but this repo takes it as a flake = false input anyway, so packaging stays uniform across all six.",
+    "glamour": "Uses the glamour markdown renderer, present in go.mod.",
+    "tui-markdown": "Uses tui-markdown with the highlight-code feature, declared in Cargo.toml.",
+    "textual-markdown": "Uses Textual's markdown widget.",
+    "watchfiles": "Declares watchfiles as a dependency in pyproject.toml.",
+    "specgetty-no-markdown": "go.mod declares no markdown renderer: the dependencies are bubbletea, bubbles, lipgloss, godirwalk, urfave/cli and yaml.",
+    "specgetty-aggregate": "Source aggregates task statistics across changes, so the progress it reports is per project rather than per change.",
+    "specgetty-archive": "Source carries an archive flow with idle, confirming and running states. Not exercised in this comparison.",
+    "specgetty-rescan": "The README documents `s` to rescan, which is a manual refresh rather than a watcher.",
+    "specgetty-path": "--path selects a project and --zoom starts inside it. The unit is a project, not a change.",
+    "specgetty-scan": "Scanning the disk for every OpenSpec project is the tool's purpose.",
+    "specgetty-no-filter-key": "No filter or search key appears in the README key table, and no filter string was found in the source. Not confirmed absent.",
+    "specgetty-no-help-key": "No help key appears in the README key table. --help works from the command line. An in-interface overlay was not confirmed either way.",
+    "dossier-keys": "From the README key table: Space toggles the task under the cursor on the tasks tab, and `e` opens the artifact in $EDITOR.",
+    "dossier-filter": "Filter mode is confirmed in the source, which tests entering it with `/`, cancelling with Esc and confirming with Enter.",
+    "dossier-path": "--help shows an optional [path] argument. A change directory passed directly must contain .openspec.yaml.",
+    "dossier-reload": "A handful of watcher-shaped references appear in the source, too few to call it either way without running a file-change test.",
+    "dossier-statusbar": "The interface carries a persistent status line listing keys rather than a dismissable overlay.",
+    "neosam-specs": "The source mentions specs extensively, but this tool's screens are organised around changes and runs. Not confirmed either way.",
+    "neosam-batch": "Batch execution is the most heavily represented feature in the source, together with an explicit Add Dependency action between changes.",
+    "neosam-batch-progress": "Source renders batch change progress.",
+    "neosam-agent": "The configurable command defaults to variants of `claude`, including `claude --print --dangerously-skip-permissions {prompt}`.",
+    "neosam-config": "A Config screen with an edit mode is present in the source, backed by a config.yaml.",
+    "neosam-archive": "An Archived tab exists for browsing. Whether a change can be archived from the interface was not confirmed.",
+    "neosam-filter": "Some filter-shaped references appear in the source, too few to call it either way.",
+    "neosam-no-args": "The tool parses no arguments at all. Without a terminal it exits 1 with ENXIO from opening /dev/tty.",
+    "neosam-no-help-key": "No help key was found in the source. Not confirmed absent.",
+    "mstanton-scope": "The observed opening screen offers creating a change, opening one, and listing them. Nothing about archives or specs appeared.",
+    "mstanton-preview": "A Preview binding exists on ctrl+p. Whether it renders markdown was not confirmed.",
+    "mstanton-no-args": "No argument parsing was found; the tool opens its interface immediately.",
+    "mstanton-license": "MIT is claimed in pyproject.toml and the README. There is no LICENSE file in the tree, and the GitHub API reports no license for the repository.",
+    "itslame-keys": "From the key table in the source: `/` filter, space toggle task, `e` edit in $EDITOR, `v` validate, `A` archive, `r` refresh, `?` help.",
+    "itslame-cli": "main.go calls exec.LookPath(\"openspec\") before anything else and exits 1 with an install hint if it fails. All commands go through the CLI.",
+    "itslame-store": "--help documents `-store string`, an OpenSpec store id to use as the workspace root. This is the only tool of the six with it.",
+    "itslame-path": "--help documents a positional path argument: a directory containing an openspec/ root.",
+    "itslame-refresh": "`r` refreshes manually. No watcher was found.",
+    "opsx-board": "The interface opens on a Board tab with collapsible columns and a priority action.",
+    "opsx-runner": "Runner, Runs and Logs views exist. Whether an agent actually runs from them was not exercised.",
+    "opsx-settings": "A Settings view exists in the source.",
+    "opsx-help": "`?` is bound to a help screen.",
+    "opsx-tasks-tab": "A Tasks tab exists. No toggle or progress action was found in the bindings, so neither is confirmed.",
+    "opsx-diagnostics": "A Diagnostics view exists, which may or may not be validation. Not confirmed.",
+    "opsx-edit-metadata": "`e` edits metadata in the interface. Opening an external $EDITOR was not confirmed.",
+    "opsx-filter": "Filter-shaped references appear in the source but no filter key appears in the bindings.",
+    "opsx-recent-projects": "It remembers recently opened projects, but shows one project at a time.",
+    "opsx-project": "--help documents --project PROJECT, a path to an OpenSpec project root.",
+    "opsx-silent-exit": "With a clean HOME and no OpenSpec root in the working directory it exits 0 after 239 bytes, drawing nothing and printing no error. It does not walk up the way the CLI does.",
+    "opsx-state": "Writes $XDG_DATA_HOME/opsx-tui/recent-projects.json.",
+    "opsx-license": "The tree carries a GPL-3.0 LICENSE file and GitHub reports GPL-3.0, but the README says the license has yet to be defined and that redistribution permission must not be assumed.",
+    "archive-handling": "Archive-shaped references appear in the source but no archive view appears in the tab list.",
+    "not-measured": "Not measured in this run."
+  }
+}

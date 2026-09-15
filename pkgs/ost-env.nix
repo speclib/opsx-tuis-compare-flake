@@ -58,7 +58,10 @@ buildEnv {
   ];
 
   # Nothing here should pull in a second copy of a tool under its upstream name.
-  pathsToLink = [ "/bin" ];
+  pathsToLink = [
+    "/bin"
+    "/share"
+  ];
 
   meta = {
     description = "Every known OpenSpec TUI under a non-colliding name, plus the openspec CLI";

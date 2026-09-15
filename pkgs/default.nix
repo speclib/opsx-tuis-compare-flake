@@ -41,9 +41,16 @@ in
       inherit (self) demo-project demo-store;
     };
 
+    ost-compare = callTool ./ost-compare.nix {
+      inherit (self) ost-demo;
+    };
+
     default = pkgs.callPackage ./ost-env.nix {
       inherit tools;
-      extraCommands = [ self.ost-demo ];
+      extraCommands = [
+        self.ost-demo
+        self.ost-compare
+      ];
     };
   }
 )
