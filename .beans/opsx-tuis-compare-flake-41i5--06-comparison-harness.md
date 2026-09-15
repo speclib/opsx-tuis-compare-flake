@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-41i5
 title: 06 Comparison harness
-status: todo
+status: in-progress
 type: milestone
 priority: high
 created_at: 2026-09-15T10:17:15Z
-updated_at: 2026-09-15T10:17:15Z
+updated_at: 2026-09-15T11:44:25Z
 ---
 
 Assemble the combined environment and the two harness commands. This milestone

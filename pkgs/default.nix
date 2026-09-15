@@ -23,3 +23,20 @@ in
   demo-project = callTool ./demo-project.nix { };
   demo-store = callTool ./demo-store.nix { };
 }
+// (
+  let
+    self = import ./default.nix { inherit pkgs inputs; };
+    tools = lib.filterAttrs (n: _: builtins.elem n toolNames) self;
+    toolNames = [
+      "specgetty"
+      "dossier"
+      "neosam"
+      "mstanton"
+      "itslame"
+      "opsx"
+    ];
+  in
+  {
+    default = pkgs.callPackage ./ost-env.nix { inherit tools; };
+  }
+)

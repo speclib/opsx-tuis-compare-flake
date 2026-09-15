@@ -150,6 +150,7 @@ let
   };
   demoProject = packageSet.demo-project;
   demoStore = packageSet.demo-store;
+  combinedEnv = packageSet.default;
 
   # Runs one scenario script under the sandbox.
   mkE2E =
@@ -159,6 +160,7 @@ let
       packages ? [ ],
       needsFixture ? false,
       needsStore ? false,
+      needsEnv ? false,
     }:
     pkgs.runCommand "e2e-${name}"
       {
@@ -177,6 +179,10 @@ let
           cp -r ${demoProject} "$TMPDIR/work/fixture"
           chmod -R u+w "$TMPDIR/work/fixture"
           export OST_FIXTURE="$TMPDIR/work/fixture"
+        ''}
+        ${lib.optionalString needsEnv ''
+          export OST_ENV="${combinedEnv}"
+          export PATH="${combinedEnv}/bin:$PATH"
         ''}
         ${lib.optionalString needsStore ''
           cp -r ${demoStore} "$TMPDIR/work/store"
@@ -220,6 +226,7 @@ let
       packages = map (p: pkgs.${p}) requires;
       needsFixture = lib.hasInfix "$OST_FIXTURE" (builtins.readFile script);
       needsStore = lib.hasInfix "$OST_STORE_ROOT" (builtins.readFile script);
+      needsEnv = lib.hasInfix "$OST_ENV" (builtins.readFile script);
     };
 
   # checks.<system>.e2e-<name>, one per script found on disk.

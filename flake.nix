@@ -90,7 +90,20 @@
         };
       });
 
-      apps = forAllSystems (pkgs: { });
+      # nix run .#itslame, and so on.
+      apps = forAllSystems (
+        pkgs:
+        let
+          packageSet = import ./pkgs { inherit pkgs inputs; };
+          runnable = nixpkgs.lib.filterAttrs (
+            _name: pkg: (pkg.passthru or { }) ? smoke && !(pkg.meta.broken or false)
+          ) packageSet;
+        in
+        nixpkgs.lib.mapAttrs (_name: pkg: {
+          type = "app";
+          program = "${pkg}/bin/${pkg.passthru.smoke.bin}";
+        }) runnable
+      );
 
       checks = forAllSystems (
         pkgs:

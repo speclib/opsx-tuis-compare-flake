@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-ix26
 title: Combined default env with ost-* wrappers
-status: todo
+status: completed
 type: epic
 priority: high
 created_at: 2026-09-15T10:17:15Z
-updated_at: 2026-09-15T10:17:15Z
+updated_at: 2026-09-15T11:46:05Z
 parent: opsx-tuis-compare-flake-41i5
 blocked_by:
     - opsx-tuis-compare-flake-juf8
@@ -52,3 +52,27 @@ its upstream binary name, so three `openspec-tui` symlinks never race inside one
 - [ ] e2e scenario `default-env` passes
 - [ ] e2e scenario `no-name-collision` passes
 - [ ] `nix run .#itslame -- --help` works
+
+## Summary of Changes
+
+`packages.default` exists. `ls result/bin` gives exactly:
+
+```
+openspec  ost-dossier  ost-itslame  ost-mstanton  ost-neosam  ost-opsx  ost-specgetty
+```
+
+Wrapping happens in the environment, not in the packages. Each package keeps
+the binary name upstream ships, so it still reports on what upstream actually
+installs, and the three `openspec-tui` binaries never race as symlinks in one
+`buildEnv`. Both halves are asserted by `no-name-collision`.
+
+The tool list is derived from the package set, never written down, so the
+degradation rule works with one edit: marking a tool broken drops it from the
+environment, the apps and the checks at once.
+
+All six wrappers get the openspec CLI on PATH, not only itslame which requires
+it, so the comparison judges the tools rather than the user's installation.
+Proved by running `ost-itslame` with `PATH=/nonexistent` and asserting the
+install hint does not appear.
+
+`ost-compare` and `ost-demo` join the environment in the next two epics.
