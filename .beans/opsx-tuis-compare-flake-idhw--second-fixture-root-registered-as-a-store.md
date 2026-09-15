@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-idhw
 title: Second fixture root registered as a store
-status: todo
+status: completed
 type: epic
 priority: normal
 created_at: 2026-09-15T10:16:50Z
-updated_at: 2026-09-15T10:16:50Z
+updated_at: 2026-09-15T11:43:54Z
 parent: opsx-tuis-compare-flake-ecsi
 blocked_by:
     - opsx-tuis-compare-flake-j56p
@@ -41,3 +41,23 @@ Do not implement store support in any tool. Observe what each one does.
 - [ ] The store registers and resolves inside a temp `XDG_DATA_HOME`
 - [ ] `$HOME/.local/share/openspec` is untouched after a full run
 - [ ] e2e scenario `store-resolution` passes
+
+## Summary of Changes
+
+`fixture-store/` is a second valid OpenSpec root, built and validated by
+`pkgs/demo-store.nix`.
+
+`openspec store register` runs inside the Nix build sandbox rather than on the
+host. That is the stronger form of the constraint: the sandbox makes reaching
+the real registry impossible instead of merely discouraged, so protection does
+not depend on anyone reading a prompt carefully. The scenario asserts where the
+registry landed: `/build/work/sandbox/home/.local/share/openspec/stores/registry.yaml`.
+
+Registering and listing alone would pass even if `--store` silently resolved to
+the working directory, so the scenario also runs an unscoped `openspec list`
+from inside the fixture and asserts the store's change is absent. That is the
+"editing plans in the wrong repo" failure the briefing's section 7 names.
+Falsified with an unregistered id, which is refused rather than falling back.
+
+Verified afterwards: the host registry at `~/.local/share/openspec/stores/` is
+dated 1 September and still contains only Pim's own `nivis` store.

@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  Second demo root for opsx-tuis-compare-flake, registered as an OpenSpec store.
+
+  A store is a standalone planning repo shared by several code repos. This one
+  exists so the comparison can exercise the --store axis: one tool accepts the
+  flag, and the other five can be observed ignoring or rejecting it.

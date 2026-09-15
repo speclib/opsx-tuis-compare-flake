@@ -1,11 +1,11 @@
 ---
 # opsx-tuis-compare-flake-ecsi
 title: 05 Fixture project
-status: in-progress
+status: completed
 type: milestone
 priority: high
 created_at: 2026-09-15T10:16:50Z
-updated_at: 2026-09-15T10:52:57Z
+updated_at: 2026-09-15T11:43:54Z
 ---
 
 Build the shared fixture OpenSpec project that every tool is judged on, plus a
@@ -21,3 +21,11 @@ CLI-backed tools need a root the `openspec` CLI recognises.
 - [ ] `openspec validate` passes on the fixture
 - [ ] `openspec list` sees both active changes and the archived one
 - [ ] Store registration happens only inside a temp `XDG_DATA_HOME`
+
+## Summary of Changes
+
+Two roots: the fixture every tool is judged on, and a second root registered as
+a store for the `--store` axis. Both validate at build time, so neither can
+reach a comparison run in a state that makes all six tools look broken.
+
+Two e2e scenarios cover them, each with its own falsification.

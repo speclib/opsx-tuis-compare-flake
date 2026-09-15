@@ -21,4 +21,5 @@ in
   opsx = callTool ./opsx.nix { };
 
   demo-project = callTool ./demo-project.nix { };
+  demo-store = callTool ./demo-store.nix { };
 }

@@ -144,7 +144,12 @@ let
 
   # Scenarios that need the fixture get it as $OST_FIXTURE, declared with a
   # `# fixture` marker line so the dependency stays next to the script.
-  demoProject = (import ../pkgs { inherit pkgs; inputs = flakeInputs; }).demo-project;
+  packageSet = import ../pkgs {
+    inherit pkgs;
+    inputs = flakeInputs;
+  };
+  demoProject = packageSet.demo-project;
+  demoStore = packageSet.demo-store;
 
   # Runs one scenario script under the sandbox.
   mkE2E =
@@ -153,6 +158,7 @@ let
       script,
       packages ? [ ],
       needsFixture ? false,
+      needsStore ? false,
     }:
     pkgs.runCommand "e2e-${name}"
       {
@@ -171,6 +177,11 @@ let
           cp -r ${demoProject} "$TMPDIR/work/fixture"
           chmod -R u+w "$TMPDIR/work/fixture"
           export OST_FIXTURE="$TMPDIR/work/fixture"
+        ''}
+        ${lib.optionalString needsStore ''
+          cp -r ${demoStore} "$TMPDIR/work/store"
+          chmod -R u+w "$TMPDIR/work/store"
+          export OST_STORE_ROOT="$TMPDIR/work/store"
         ''}
 
         echo "=== e2e-${name} ==="
@@ -208,6 +219,7 @@ let
       inherit name script;
       packages = map (p: pkgs.${p}) requires;
       needsFixture = lib.hasInfix "$OST_FIXTURE" (builtins.readFile script);
+      needsStore = lib.hasInfix "$OST_STORE_ROOT" (builtins.readFile script);
     };
 
   # checks.<system>.e2e-<name>, one per script found on disk.
